@@ -145,7 +145,8 @@ export default function Auth() {
                       placeholder="твой@email.ru"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
+                      className="auth-input bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white focus:bg-cs-dark/70"
+                      style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
                     />
                   </div>
                   <div className="space-y-2">
@@ -156,7 +157,8 @@ export default function Auth() {
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
+                      className="auth-input bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white focus:bg-cs-dark/70"
+                      style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
                     />
                   </div>
                   <Button 
@@ -183,7 +185,8 @@ export default function Auth() {
                       placeholder="ProGamer2000"
                       value={formData.nickname}
                       onChange={(e) => handleInputChange('nickname', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
+                      className="auth-input bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white focus:bg-cs-dark/70"
+                      style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
                     />
                   </div>
                   <div className="space-y-2">
@@ -194,7 +197,8 @@ export default function Auth() {
                       placeholder="твой@email.ru"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
+                      className="auth-input bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white focus:bg-cs-dark/70"
+                      style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
                     />
                   </div>
                   <div className="space-y-2">
@@ -205,7 +209,8 @@ export default function Auth() {
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
+                      className="auth-input bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white focus:bg-cs-dark/70"
+                      style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
                     />
                   </div>
                   <div className="space-y-2">
@@ -216,7 +221,8 @@ export default function Auth() {
                       placeholder="••••••••"
                       value={formData.confirmPassword}
                       onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
+                      className="auth-input bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white focus:bg-cs-dark/70"
+                      style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
                     />
                   </div>
                   

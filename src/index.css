@@ -121,4 +121,35 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Force white text in inputs */
+  input[type="text"],
+  input[type="email"], 
+  input[type="password"],
+  textarea {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus, 
+  input[type="password"]:focus,
+  textarea:focus {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background-color: rgba(45, 55, 72, 0.7) !important;
+  }
+
+  /* Additional specificity for auth page */
+  .auth-input {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background-color: rgba(45, 55, 72, 0.5) !important;
+  }
+
+  .auth-input:focus {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    background-color: rgba(45, 55, 72, 0.8) !important;
+  }
 }
