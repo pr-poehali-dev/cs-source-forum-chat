@@ -75,7 +75,7 @@ const Index = () => {
                   rel="noopener noreferrer"
                 >
                   <img
-                    src="//img.myarena.ru/110421/560.png"
+                    src="//img.myarena.ru/110421/560_1_FF9A37_FFFFFF_FF9A37_0.png"
                     alt="Статистика сервера #1"
                     className="rounded hover:opacity-80 transition-opacity w-full"
                   />
