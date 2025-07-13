@@ -201,7 +201,7 @@ const Stats = () => {
       />
       
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cs-dark/60 via-cs-dark/70 to-cs-dark/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-cs-dark/90 via-cs-dark/95 to-cs-dark/98" />
       
       {/* Content */}
       <div className="relative z-10">
@@ -214,18 +214,18 @@ const Stats = () => {
               <h1 className="font-orbitron text-5xl font-black text-cs-orange cs-text-shadow mb-4">
                 СТАТИСТИКА ИГРОКОВ
               </h1>
-              <p className="text-cs-light/80 text-lg max-w-2xl mx-auto">
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
                 Детальная статистика всех игроков сервера 45.136.205.92:27015
               </p>
               {lastUpdate && (
-                <div className="mt-4 text-sm text-cs-light/60">
+                <div className="mt-4 text-sm text-white/70">
                   Последнее обновление: {lastUpdate.toLocaleString('ru-RU')}
                 </div>
               )}
             </div>
 
             {/* Filters */}
-            <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm mb-8">
+            <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm mb-8 shadow-xl">
               <CardHeader>
                 <CardTitle className="font-orbitron text-cs-orange flex items-center space-x-2">
                   <Icon name="Filter" size={24} />
@@ -248,23 +248,23 @@ const Stats = () => {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-cs-light/80 mb-2">
+                    <label className="block text-sm font-medium text-white/90 mb-2">
                       Поиск по нику
                     </label>
                     <Input
                       placeholder="Введите ник игрока..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/30 text-cs-light"
+                      className="bg-cs-dark/90 border-cs-orange/40 text-white placeholder:text-gray-400"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-cs-light/80 mb-2">
+                    <label className="block text-sm font-medium text-white/90 mb-2">
                       Сортировать по
                     </label>
                     <Select value={sortBy} onValueChange={setSortBy}>
-                      <SelectTrigger className="bg-cs-dark/50 border-cs-orange/30 text-cs-light">
+                      <SelectTrigger className="bg-cs-dark/90 border-cs-orange/40 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -279,11 +279,11 @@ const Stats = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-cs-light/80 mb-2">
+                    <label className="block text-sm font-medium text-white/90 mb-2">
                       Порядок
                     </label>
                     <Select value={sortOrder} onValueChange={setSortOrder}>
-                      <SelectTrigger className="bg-cs-dark/50 border-cs-orange/30 text-cs-light">
+                      <SelectTrigger className="bg-cs-dark/90 border-cs-orange/40 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -294,11 +294,11 @@ const Stats = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-cs-light/80 mb-2">
+                    <label className="block text-sm font-medium text-white/90 mb-2">
                       Ранг
                     </label>
                     <Select value={selectedRank} onValueChange={setSelectedRank}>
-                      <SelectTrigger className="bg-cs-dark/50 border-cs-orange/30 text-cs-light">
+                      <SelectTrigger className="bg-cs-dark/90 border-cs-orange/40 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -315,25 +315,25 @@ const Stats = () => {
 
             {/* Stats Summary */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm shadow-lg">
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-cs-orange font-orbitron">
                     {filteredAndSortedPlayers.length}
                   </div>
-                  <div className="text-sm text-cs-light/80">Всего игроков</div>
+                  <div className="text-sm text-white/90">Всего игроков</div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm shadow-lg">
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-green-500 font-orbitron">
                     {players.length}
                   </div>
-                  <div className="text-sm text-cs-light/80">Сейчас онлайн</div>
+                  <div className="text-sm text-white/90">Сейчас онлайн</div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm shadow-lg">
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-blue-400 font-orbitron">
                     {filteredAndSortedPlayers.length > 0 ? 
@@ -341,11 +341,11 @@ const Stats = () => {
                       '0.00'
                     }
                   </div>
-                  <div className="text-sm text-cs-light/80">Средний K/D</div>
+                  <div className="text-sm text-white/90">Средний K/D</div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm shadow-lg">
                 <CardContent className="p-4 text-center">
                   <div className="text-2xl font-bold text-purple-400 font-orbitron">
                     {filteredAndSortedPlayers.length > 0 ? 
@@ -353,13 +353,13 @@ const Stats = () => {
                       '0'
                     }%
                   </div>
-                  <div className="text-sm text-cs-light/80">Средний винрейт</div>
+                  <div className="text-sm text-white/90">Средний винрейт</div>
                 </CardContent>
               </Card>
             </div>
 
             {/* Players Table */}
-            <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+            <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm shadow-xl">
               <CardHeader>
                 <CardTitle className="font-orbitron text-cs-orange flex items-center space-x-2">
                   <Icon name="Users" size={24} />
@@ -372,23 +372,23 @@ const Stats = () => {
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="bg-cs-dark/30">
-                      <tr className="border-b border-cs-orange/20">
-                        <th className="px-4 py-3 text-left text-cs-orange font-orbitron text-sm">#</th>
-                        <th className="px-4 py-3 text-left text-cs-orange font-orbitron text-sm">Игрок</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">Ранг</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">Очки</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">K/D</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">Винрейт</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">Игры</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">Часы</th>
-                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm">Статус</th>
+                    <thead className="bg-cs-dark/80">
+                      <tr className="border-b border-cs-orange/40">
+                        <th className="px-4 py-3 text-left text-cs-orange font-orbitron text-sm font-bold">#</th>
+                        <th className="px-4 py-3 text-left text-cs-orange font-orbitron text-sm font-bold">Игрок</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">Ранг</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">Очки</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">K/D</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">Винрейт</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">Игры</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">Часы</th>
+                        <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold">Статус</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredAndSortedPlayers.map((player, index) => (
-                        <tr key={player.name} className="border-b border-cs-orange/10 hover:bg-cs-dark/20 transition-colors">
-                          <td className="px-4 py-3 text-cs-light font-mono text-sm">
+                        <tr key={player.name} className="border-b border-cs-orange/20 hover:bg-cs-dark/40 transition-colors">
+                          <td className="px-4 py-3 text-white font-mono text-sm font-bold">
                             {index + 1}
                           </td>
                           <td className="px-4 py-3">
@@ -397,7 +397,7 @@ const Stats = () => {
                                 {players.some(p => p.name === player.name) && (
                                   <Icon name="Circle" size={8} className="text-green-500 animate-pulse" />
                                 )}
-                                <span className="font-semibold text-cs-light truncate max-w-[150px]">
+                                <span className="font-semibold text-white truncate max-w-[150px]">
                                   {player.name}
                                 </span>
                               </div>
@@ -429,13 +429,13 @@ const Stats = () => {
                               {player.winRate}%
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-center text-cs-light font-mono text-sm">
+                          <td className="px-4 py-3 text-center text-white font-mono text-sm">
                             {player.totalGames}
                           </td>
-                          <td className="px-4 py-3 text-center text-cs-light font-mono text-sm">
+                          <td className="px-4 py-3 text-center text-white font-mono text-sm">
                             {player.hoursPlayed}ч
                           </td>
-                          <td className="px-4 py-3 text-center text-xs text-cs-light/60">
+                          <td className="px-4 py-3 text-center text-xs text-white/80">
                             {players.some(p => p.name === player.name) ? (
                               <Badge className="bg-green-500/20 text-green-400 border-green-500/40">
                                 Онлайн
@@ -451,10 +451,10 @@ const Stats = () => {
                 </div>
                 
                 {filteredAndSortedPlayers.length === 0 && (
-                  <div className="text-center py-12 text-cs-light/60">
+                  <div className="text-center py-12 text-white/80">
                     <Icon name="Search" size={48} className="mx-auto mb-4 opacity-50" />
-                    <div className="text-lg mb-2">Игроки не найдены</div>
-                    <div className="text-sm">Попробуйте изменить параметры поиска</div>
+                    <div className="text-lg mb-2 text-white">Игроки не найдены</div>
+                    <div className="text-sm text-white/70">Попробуйте изменить параметры поиска</div>
                   </div>
                 )}
               </CardContent>
