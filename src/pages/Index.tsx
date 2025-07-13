@@ -289,37 +289,97 @@ const Index = () => {
           <h3 className="font-orbitron text-3xl font-bold text-cs-orange mb-8 text-center">
             СИСТЕМА РАНГОВ
           </h3>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-              {ranks.map((rank, index) => (
+          <div className="text-center mb-6">
+            <p className="text-cs-light/80 font-orbitron text-sm tracking-widest">
+              СЕРВЕР: <span className="text-cs-orange font-mono">45.136.205.92:27015</span>
+            </p>
+          </div>
+          
+          <div className="max-w-6xl mx-auto mb-12">
+            {/* Top Players */}
+            <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm mb-8">
+              <CardHeader>
+                <CardTitle className="font-orbitron text-cs-orange flex items-center justify-center space-x-2">
+                  <Icon name="Trophy" size={24} />
+                  <span>ТОП ИГРОКИ СЕРВЕРА</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[
+                    { rank: 1, nick: "ProGamer2000", score: "15,240", kd: "2.1", time: "156ч" },
+                    { rank: 2, nick: "HeadShot_King", score: "12,890", kd: "1.8", time: "134ч" },
+                    { rank: 3, nick: "CSS_Legend", score: "11,450", kd: "1.7", time: "128ч" },
+                    { rank: 4, nick: "NoobSlayer", score: "9,820", kd: "1.5", time: "112ч" },
+                    { rank: 5, nick: "Admin_Vitalik", score: "8,940", kd: "1.4", time: "98ч" },
+                    { rank: 6, nick: "ClanLeader", score: "7,650", kd: "1.3", time: "89ч" }
+                  ].map((player, index) => (
+                    <div key={index} className="p-4 bg-cs-dark/40 rounded border border-cs-orange/20">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-3">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
+                            player.rank === 1 ? 'bg-yellow-500' :
+                            player.rank === 2 ? 'bg-gray-400' :
+                            player.rank === 3 ? 'bg-orange-600' : 'bg-cs-orange'
+                          }`}>
+                            {player.rank}
+                          </div>
+                          <span className="font-semibold text-cs-light">{player.nick}</span>
+                        </div>
+                        {player.rank <= 3 && (
+                          <Icon name="Crown" size={20} className={
+                            player.rank === 1 ? 'text-yellow-500' :
+                            player.rank === 2 ? 'text-gray-400' : 'text-orange-600'
+                          } />
+                        )}
+                      </div>
+                      <div className="space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-cs-light/70">Очки:</span>
+                          <span className="text-cs-orange font-mono">{player.score}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-cs-light/70">K/D:</span>
+                          <span className="text-green-500 font-mono">{player.kd}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-cs-light/70">Время:</span>
+                          <span className="text-blue-400 font-mono">{player.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Rank System */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+              {[
+                { name: "НОВИЧОК", minScore: 0, color: "bg-gray-600", icon: "User" },
+                { name: "СОЛДАТ", minScore: 500, color: "bg-green-600", icon: "Shield" },
+                { name: "СЕРЖАНТ", minScore: 1500, color: "bg-blue-600", icon: "Star" },
+                { name: "ЛЕЙТЕНАНТ", minScore: 3000, color: "bg-purple-600", icon: "Award" },
+                { name: "КАПИТАН", minScore: 5000, color: "bg-orange-600", icon: "Medal" },
+                { name: "МАЙОР", minScore: 8000, color: "bg-red-600", icon: "Trophy" },
+                { name: "ПОЛКОВНИК", minScore: 12000, color: "bg-yellow-600", icon: "Crown" },
+                { name: "ГЕНЕРАЛ", minScore: 20000, color: "bg-gradient-to-r from-yellow-400 to-red-500", icon: "Zap" }
+              ].map((rank, index) => (
                 <Card
                   key={index}
-                  className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm"
+                  className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm hover:scale-105 transition-transform"
                 >
                   <CardHeader className="text-center pb-3">
-                    <div
-                      className={`w-16 h-16 rounded-full mx-auto mb-3 ${rank.color} flex items-center justify-center`}
-                    >
-                      <Icon name="Award" size={24} className="text-white" />
+                    <div className={`w-12 h-12 rounded-full mx-auto mb-2 ${rank.color} flex items-center justify-center`}>
+                      <Icon name={rank.icon as any} size={20} className="text-white" />
                     </div>
-                    <CardTitle className="text-cs-light font-orbitron text-lg">
+                    <CardTitle className="text-cs-light font-orbitron text-sm">
                       {rank.name}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <Progress
-                        value={(rank.xp / rank.maxXp) * 100}
-                        className="h-2 bg-cs-blue"
-                      />
-                      <div className="text-center text-sm">
-                        <span className="text-cs-orange font-mono">
-                          {rank.xp}
-                        </span>
-                        <span className="text-cs-light/70">
-                          /{rank.maxXp} XP
-                        </span>
-                      </div>
+                  <CardContent className="text-center">
+                    <div className="text-xs text-cs-orange font-mono">
+                      {rank.minScore}+ очков
                     </div>
                   </CardContent>
                 </Card>
