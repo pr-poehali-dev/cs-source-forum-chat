@@ -48,6 +48,11 @@ const Index = () => {
         <Navigation />
         <HeroSection />
 
+        {/* Статистика сервера */}
+        <div className="container mx-auto px-6 py-12">
+          <ServerStats />
+        </div>
+
 
 
 
