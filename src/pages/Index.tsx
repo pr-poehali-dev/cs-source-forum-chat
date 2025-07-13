@@ -43,6 +43,16 @@ const Index = () => {
               </div>
             </div>
             <div className="hidden md:flex space-x-6">
+              <a href="/" className="text-cs-light hover:text-cs-orange transition-colors font-orbitron font-bold">
+                ГЛАВНАЯ
+              </a>
+              <a href="/forum" className="text-cs-light hover:text-cs-orange transition-colors font-orbitron font-bold">
+                ФОРУМ
+              </a>
+              <a href="/chat" className="text-cs-light hover:text-cs-orange transition-colors font-orbitron font-bold">
+                ЧАТ
+              </a>
+            </div>
               {[
                 "Главная",
                 "Форум",
