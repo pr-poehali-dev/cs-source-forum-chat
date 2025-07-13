@@ -150,57 +150,7 @@ const Index = () => {
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {servers.map((server, index) => (
-              <Card
-                key={index}
-                className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm"
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-cs-light font-orbitron">
-                      {server.name}
-                    </CardTitle>
-                    <Badge
-                      variant={
-                        server.status === "online" ? "default" : "destructive"
-                      }
-                      className={
-                        server.status === "online" ? "bg-green-500" : ""
-                      }
-                    >
-                      {server.status === "online" ? "ОНЛАЙН" : "ОФЛАЙН"}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-cs-light/70">Игроки:</span>
-                      <span className="text-cs-orange font-mono">
-                        {server.players}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-cs-light/70">Пинг:</span>
-                      <span className="text-cs-orange font-mono">
-                        {server.ping}
-                      </span>
-                    </div>
-                    {server.status === "online" && (
-                      <Button
-                        size="sm"
-                        className="w-full bg-cs-orange/80 hover:bg-cs-orange"
-                      >
-                        <Icon name="ExternalLink" size={14} className="mr-2" />
-                        Подключиться
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+
         </div>
       </section>
 
