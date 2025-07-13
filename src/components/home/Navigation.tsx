@@ -1,7 +1,32 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
 export const Navigation = () => {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Проверяем авторизованного пользователя при загрузке
+    const userData = localStorage.getItem('currentUser');
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.isLoggedIn) {
+        setCurrentUser(user);
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    const userData = localStorage.getItem('currentUser');
+    if (userData) {
+      const user = JSON.parse(userData);
+      user.isLoggedIn = false;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+    setCurrentUser(null);
+    window.location.reload();
+  };
+
   return (
     <nav className="bg-cs-gray/80 backdrop-blur-sm border-b border-cs-orange/20">
       <div className="container mx-auto px-6 py-4">
@@ -68,15 +93,41 @@ export const Navigation = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
             </a>
           </div>
-          <a href="/auth">
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-cs-orange/30 transform hover:scale-105 transition-all duration-300 border-2 border-cs-orange/50 hover:border-cs-orange"
-            >
-              <Icon name="UserCheck" size={18} className="mr-2" />
-              <span className="tracking-wider">ВОЙТИ</span>
-            </Button>
-          </a>
+          
+          {currentUser ? (
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3 bg-cs-gray/60 px-4 py-2 rounded-lg border border-green-500/40">
+                <Icon name="User" size={16} className="text-green-500" />
+                <div>
+                  <div className="text-green-500 font-orbitron font-bold text-sm">
+                    {currentUser.nickname}
+                  </div>
+                  <div className="text-cs-light/60 text-xs">
+                    Игрок онлайн
+                  </div>
+                </div>
+              </div>
+              <Button 
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="border-red-500/40 text-red-500 hover:bg-red-500/20 font-orbitron"
+              >
+                <Icon name="LogOut" size={16} className="mr-2" />
+                ВЫЙТИ
+              </Button>
+            </div>
+          ) : (
+            <a href="/auth">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-cs-orange/30 transform hover:scale-105 transition-all duration-300 border-2 border-cs-orange/50 hover:border-cs-orange"
+              >
+                <Icon name="UserCheck" size={18} className="mr-2" />
+                <span className="tracking-wider">ВОЙТИ</span>
+              </Button>
+            </a>
+          )}
         </div>
       </div>
       

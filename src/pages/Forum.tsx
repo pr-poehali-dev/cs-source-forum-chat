@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
 import CreateTopicModal from "@/components/forum/CreateTopicModal";
 
@@ -57,14 +59,144 @@ const forumSections = [
 
 ];
 
+// Компонент для ответов на темы
+const ReplyModal = ({ children, topicId, topicTitle }: { children: React.ReactNode; topicId: string; topicTitle: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [replyContent, setReplyContent] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    if (!replyContent.trim()) {
+      alert('Напишите ответ!');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+      alert('Для ответа на тему необходимо войти в аккаунт!');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    const user = JSON.parse(currentUser);
+    
+    const newReply = {
+      id: Date.now().toString(),
+      topicId: topicId,
+      content: replyContent,
+      author: user.nickname,
+      authorEmail: user.email,
+      createdAt: new Date().toISOString(),
+      likes: 0
+    };
+    
+    const existingReplies = JSON.parse(localStorage.getItem('forumReplies') || '[]');
+    existingReplies.unshift(newReply);
+    localStorage.setItem('forumReplies', JSON.stringify(existingReplies));
+    
+    const existingTopics = JSON.parse(localStorage.getItem('forumTopics') || '[]');
+    const topicIndex = existingTopics.findIndex((topic: any) => topic.id === topicId);
+    if (topicIndex >= 0) {
+      existingTopics[topicIndex].replies = (existingTopics[topicIndex].replies || 0) + 1;
+      existingTopics[topicIndex].lastReply = {
+        author: user.nickname,
+        time: "только что"
+      };
+      localStorage.setItem('forumTopics', JSON.stringify(existingTopics));
+    }
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setReplyContent("");
+    setIsSubmitting(false);
+    setIsOpen(false);
+    
+    alert(`Ответ на тему "${topicTitle}" успешно отправлен!`);
+    window.location.reload();
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        {children}
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl bg-cs-gray border-cs-orange/30 text-cs-light">
+        <DialogHeader>
+          <DialogTitle className="font-orbitron text-2xl font-bold text-cs-orange flex items-center space-x-2">
+            <Icon name="MessageCircle" size={24} />
+            <span>ОТВЕТИТЬ НА ТЕМУ</span>
+          </DialogTitle>
+          <DialogDescription className="text-cs-light/70 font-orbitron">
+            Тема: "{topicTitle}"
+          </DialogDescription>
+        </DialogHeader>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-cs-orange font-orbitron tracking-wider">
+              ВАШ ОТВЕТ *
+            </label>
+            <Textarea
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+              placeholder="Напишите ваш ответ..."
+              className="auth-input bg-cs-gray/40 border-cs-orange/40 text-white placeholder:text-gray-400 min-h-[120px] font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange focus:text-white"
+              style={{ color: 'white !important', WebkitTextFillColor: 'white' }}
+              maxLength={1000}
+            />
+            <div className="text-xs text-cs-light/60 text-right">
+              {replyContent.length}/1000 символов
+            </div>
+          </div>
+
+          <div className="flex space-x-3">
+            <Button 
+              type="submit"
+              disabled={isSubmitting || !replyContent.trim()}
+              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-orbitron font-bold disabled:opacity-50"
+            >
+              {isSubmitting ? (
+                <Icon name="Loader2" size={16} className="animate-spin mr-2" />
+              ) : (
+                <Icon name="Send" size={16} className="mr-2" />
+              )}
+              {isSubmitting ? 'ОТПРАВЛЯЕМ...' : 'ОТПРАВИТЬ ОТВЕТ'}
+            </Button>
+            
+            <Button 
+              type="button"
+              variant="outline"
+              onClick={() => setIsOpen(false)}
+              className="border-cs-orange/40 text-cs-orange hover:bg-cs-orange/20 font-orbitron"
+            >
+              ОТМЕНА
+            </Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default function Forum() {
   const [userTopics, setUserTopics] = useState<any[]>([]);
+  const [topicReplies, setTopicReplies] = useState<any[]>([]);
 
   useEffect(() => {
     // Загружаем созданные пользователем темы
     const savedTopics = localStorage.getItem('forumTopics');
     if (savedTopics) {
       setUserTopics(JSON.parse(savedTopics));
+    }
+    
+    // Загружаем ответы на темы
+    const savedReplies = localStorage.getItem('forumReplies');
+    if (savedReplies) {
+      setTopicReplies(JSON.parse(savedReplies));
     }
   }, []);
   return (
@@ -198,16 +330,69 @@ export default function Forum() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="border-green-500/40 text-green-500 hover:bg-green-500/20"
-                        >
-                          <Icon name="MessageCircle" size={14} className="mr-1" />
-                          Ответить
-                        </Button>
+                        <ReplyModal topicId={topic.id} topicTitle={topic.title}>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="border-green-500/40 text-green-500 hover:bg-green-500/20"
+                          >
+                            <Icon name="MessageCircle" size={14} className="mr-1" />
+                            Ответить ({topic.replies || 0})
+                          </Button>
+                        </ReplyModal>
                       </div>
                     </div>
+                    
+                    {/* Ответы на тему */}
+                    {topicReplies.filter(reply => reply.topicId === topic.id).length > 0 && (
+                      <div className="mt-4 pt-4 border-t border-green-500/20">
+                        <div className="text-sm font-bold text-green-500 mb-3 flex items-center space-x-2">
+                          <Icon name="MessageSquare" size={16} />
+                          <span>ОТВЕТЫ ({topicReplies.filter(reply => reply.topicId === topic.id).length})</span>
+                        </div>
+                        <div className="space-y-3">
+                          {topicReplies
+                            .filter(reply => reply.topicId === topic.id)
+                            .slice(0, 3)
+                            .map((reply) => (
+                            <div key={reply.id} className="bg-cs-dark/40 p-3 rounded border-l-4 border-green-500">
+                              <div className="text-white text-sm mb-2">
+                                {reply.content}
+                              </div>
+                              <div className="flex items-center justify-between text-xs text-cs-light/60">
+                                <div className="flex items-center space-x-2">
+                                  <Icon name="User" size={12} className="text-green-500" />
+                                  <span className="text-green-500">{reply.author}</span>
+                                  <Icon name="Clock" size={12} />
+                                  <span>{new Date(reply.createdAt).toLocaleDateString('ru-RU')}</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-6 px-2 text-xs text-blue-400 hover:bg-blue-500/20"
+                                  >
+                                    <Icon name="ThumbsUp" size={12} className="mr-1" />
+                                    {reply.likes || 0}
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                          {topicReplies.filter(reply => reply.topicId === topic.id).length > 3 && (
+                            <div className="text-center">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                className="border-green-500/40 text-green-500 hover:bg-green-500/20 text-xs"
+                              >
+                                Показать все ответы ({topicReplies.filter(reply => reply.topicId === topic.id).length})
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               ))}
