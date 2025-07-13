@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import CreateTopicModal from "@/components/forum/CreateTopicModal";
 
 const forumSections = [
   {
@@ -88,6 +90,32 @@ export default function Forum() {
 
       {/* Forum Stats */}
       <div className="container mx-auto px-6 py-6">
+        {/* Action Bar */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+          <div className="flex items-center space-x-4">
+            <h2 className="font-orbitron text-xl font-bold text-cs-light">
+              РАЗДЕЛЫ ФОРУМА
+            </h2>
+          </div>
+          <div className="flex space-x-3">
+            {/* Desktop Create Topic Button */}
+            <CreateTopicModal>
+              <Button className="hidden md:flex bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-cs-orange/30 transform hover:scale-105 transition-all duration-300 border-2 border-cs-orange/50 hover:border-cs-orange">
+                <Icon name="Plus" size={18} className="mr-2" />
+                <span className="tracking-wider">СОЗДАТЬ ТЕМУ</span>
+              </Button>
+            </CreateTopicModal>
+            
+            {/* Mobile Create Topic Button */}
+            <CreateTopicModal>
+              <Button className="md:hidden flex-1 bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold px-4 py-3 rounded-lg shadow-lg transition-all duration-300 border-2 border-cs-orange/50">
+                <Icon name="Plus" size={16} className="mr-2" />
+                <span className="tracking-wider text-sm">СОЗДАТЬ</span>
+              </Button>
+            </CreateTopicModal>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
             <CardContent className="p-4 text-center">
@@ -167,6 +195,18 @@ export default function Forum() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Floating Action Button for Mobile */}
+        <div className="fixed bottom-6 right-6 md:hidden z-50">
+          <CreateTopicModal>
+            <Button 
+              size="lg"
+              className="w-14 h-14 rounded-full bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange shadow-2xl hover:shadow-cs-orange/40 transform hover:scale-110 transition-all duration-300 border-2 border-cs-orange/50 hover:border-cs-orange"
+            >
+              <Icon name="Plus" size={24} className="text-white" />
+            </Button>
+          </CreateTopicModal>
+        </div>
       </div>
     </div>
   );
