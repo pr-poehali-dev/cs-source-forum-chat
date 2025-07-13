@@ -105,6 +105,23 @@ const Index = () => {
           <h3 className="font-orbitron text-3xl font-bold text-cs-orange mb-8 text-center">
             МОНИТОРИНГ СЕРВЕРОВ
           </h3>
+
+          {/* MyArena Server Stats */}
+          <div className="flex justify-center mb-12">
+            <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
+              <a
+                href="http://www.myarena.ru/game-monitoring.html?game=110421"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="//img.myarena.ru/110421/560.png"
+                  alt="Статистика сервера"
+                  className="rounded hover:opacity-80 transition-opacity"
+                />
+              </a>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {servers.map((server, index) => (
               <Card
