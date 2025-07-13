@@ -55,27 +55,7 @@ export const Navigation = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
             </a>
             
-            <a 
-              href="/chat" 
-              className="group relative px-6 py-3 bg-gradient-to-r from-green-600/20 to-green-600/10 border-2 border-green-500/40 rounded-lg font-orbitron font-bold text-cs-light hover:text-green-300 transition-all duration-300 hover:border-green-400/80 hover:bg-gradient-to-r hover:from-green-500/30 hover:to-green-500/20 hover:shadow-lg hover:shadow-green-400/20 transform hover:scale-105"
-            >
-              <div className="flex items-center space-x-2">
-                <Icon name="MessageCircle" size={18} className="group-hover:text-green-300 transition-colors" />
-                <span className="tracking-wider">ЧАТ</span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-            </a>
-            
-            <a 
-              href="/stats" 
-              className="group relative px-6 py-3 bg-gradient-to-r from-purple-600/20 to-purple-600/10 border-2 border-purple-500/40 rounded-lg font-orbitron font-bold text-cs-light hover:text-purple-300 transition-all duration-300 hover:border-purple-400/80 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-purple-500/20 hover:shadow-lg hover:shadow-purple-400/20 transform hover:scale-105"
-            >
-              <div className="flex items-center space-x-2">
-                <Icon name="BarChart3" size={18} className="group-hover:text-purple-300 transition-colors" />
-                <span className="tracking-wider">СТАТИСТИКА</span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-            </a>
+
             
             <a 
               href="/rules" 
