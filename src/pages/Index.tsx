@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useServerStats } from "@/hooks/useServerStats";
 import { Navigation } from "@/components/home/Navigation";
