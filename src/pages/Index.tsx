@@ -233,18 +233,34 @@ const Index = () => {
               />
             </Card>
 
-            <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
-              <a
-                href="http://www.myarena.ru/game-monitoring.html?game=110421"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="//img.myarena.ru/110421/560.png"
-                  alt="Статистика сервера"
-                  className="rounded hover:opacity-80 transition-opacity w-full"
-                />
-              </a>
+            <div className="space-y-6">
+              <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
+                <a
+                  href="http://www.myarena.ru/game-monitoring.html?game=110421"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="//img.myarena.ru/110421/560.png"
+                    alt="Статистика сервера #1"
+                    className="rounded hover:opacity-80 transition-opacity w-full"
+                  />
+                </a>
+              </div>
+              
+              <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
+                <a
+                  href="http://www.myarena.ru/game-monitoring.html?game=108751"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="//img.myarena.ru/108751/560.png"
+                    alt="Статистика сервера #2"
+                    className="rounded hover:opacity-80 transition-opacity w-full"
+                  />
+                </a>
+              </div>
             </div>
           </div>
 
