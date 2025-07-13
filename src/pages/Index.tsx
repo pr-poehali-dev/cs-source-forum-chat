@@ -21,7 +21,20 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen cs-gradient">
+    <div className="min-h-screen relative bg-cs-dark overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+        style={{
+          backgroundImage: "url('/img/a298e115-709d-4b48-8f88-25f8aba46ef3.jpg')"
+        }}
+      ></div>
+      
+      {/* Dark overlay for better readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-cs-dark/60 via-cs-dark/70 to-cs-dark/80"></div>
+      
+      {/* Content overlay */}
+      <div className="relative z-10">
       {/* Navigation */}
       <nav className="bg-cs-gray/80 backdrop-blur-sm border-b border-cs-orange/20">
         <div className="container mx-auto px-6 py-4">
@@ -652,6 +665,7 @@ const Index = () => {
           </p>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
