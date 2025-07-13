@@ -38,6 +38,17 @@ export const PlayersCard = ({
   lastUpdate, 
   onRefetch 
 }: PlayersCardProps) => {
+  // Фильтрация реальных игроков
+  const realPlayers = players.filter(player => 
+    !player.name.toLowerCase().includes('bot') && 
+    !player.name.toLowerCase().includes('бот') &&
+    !player.name.toLowerCase().includes('[bot]') &&
+    player.name.trim() !== ''
+  );
+
+  const totalPlayersCount = players.length;
+  const realPlayersCount = realPlayers.length;
+  const botsCount = totalPlayersCount - realPlayersCount;
   return (
     <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
       <CardHeader>
@@ -57,9 +68,16 @@ export const PlayersCard = ({
                 <Icon name="RefreshCw" size={14} />
               </Button>
             )}
-            <Badge variant="outline" className="border-green-500 text-green-500">
-              {serverInfo.players}/{serverInfo.maxPlayers}
-            </Badge>
+            <div className="flex items-center space-x-2">
+              <Badge variant="outline" className="border-green-500 text-green-500">
+                {serverInfo.players}/{serverInfo.maxPlayers}
+              </Badge>
+              {realPlayersCount !== totalPlayersCount && realPlayersCount > 0 && (
+                <Badge variant="outline" className="border-blue-400 text-blue-400 text-xs">
+                  {realPlayersCount} живых
+                </Badge>
+              )}
+            </div>
           </div>
         </CardTitle>
       </CardHeader>
@@ -118,42 +136,80 @@ export const PlayersCard = ({
               )}
             </div>
 
+            {/* Summary */}
+            {players.length > 0 && (
+              <div className="mb-4 p-3 bg-cs-dark/20 rounded">
+                <div className="grid grid-cols-3 gap-4 text-center text-sm">
+                  <div>
+                    <div className="text-cs-orange font-bold">{totalPlayersCount}</div>
+                    <div className="text-cs-light/70">Всего</div>
+                  </div>
+                  <div>
+                    <div className="text-blue-400 font-bold">{realPlayersCount}</div>
+                    <div className="text-cs-light/70">Живые</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 font-bold">{botsCount}</div>
+                    <div className="text-cs-light/70">Боты</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Players List */}
             <div className="space-y-2">
               {players.length > 0 ? (
-                players.map((player, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-cs-dark/30 rounded hover:bg-cs-dark/40 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="flex items-center space-x-1">
-                        <span className="text-xs text-cs-orange font-mono min-w-[20px]">
-                          #{index + 1}
+                players.map((player, index) => {
+                  const isBot = player.name.toLowerCase().includes('bot') || 
+                                player.name.toLowerCase().includes('бот') || 
+                                player.name.toLowerCase().includes('[bot]');
+                  
+                  return (
+                    <div key={index} className={`flex items-center justify-between p-3 rounded hover:bg-cs-dark/40 transition-colors ${
+                      isBot ? 'bg-cs-dark/20 opacity-70' : 'bg-cs-dark/30'
+                    }`}>
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs text-cs-orange font-mono min-w-[20px]">
+                            #{index + 1}
+                          </span>
+                          <Icon 
+                            name="Circle" 
+                            size={8} 
+                            className={player.ping < 50 ? "text-green-500" : player.ping < 100 ? "text-yellow-500" : "text-red-500"} 
+                          />
+                          {isBot && (
+                            <Icon name="Bot" size={12} className="text-gray-400" />
+                          )}
+                        </div>
+                        <span className={`font-semibold truncate max-w-[120px] ${
+                          isBot ? 'text-gray-400' : 'text-cs-light'
+                        }`}>
+                          {player.name}
                         </span>
-                        <Icon 
-                          name="Circle" 
-                          size={8} 
-                          className={player.ping < 50 ? "text-green-500" : player.ping < 100 ? "text-yellow-500" : "text-red-500"} 
-                        />
                       </div>
-                      <span className="font-semibold text-cs-light truncate max-w-[120px]">
-                        {player.name}
-                      </span>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <div className="flex items-center space-x-3 text-xs">
-                        <span className="text-cs-orange font-mono">{player.score}</span>
-                        <span className="text-green-500 font-mono">
-                          {player.kills}/{player.deaths}
-                        </span>
-                        <span className="text-blue-400 font-mono">{player.ping}ms</span>
+                      <div className="text-right space-y-1">
+                        <div className="flex items-center space-x-3 text-xs">
+                          <span className={`font-mono ${isBot ? 'text-gray-400' : 'text-cs-orange'}`}>
+                            {player.score}
+                          </span>
+                          <span className={`font-mono ${isBot ? 'text-gray-500' : 'text-green-500'}`}>
+                            {player.kills}/{player.deaths}
+                          </span>
+                          <span className={`font-mono ${isBot ? 'text-gray-500' : 'text-blue-400'}`}>
+                            {player.ping}ms
+                          </span>
+                        </div>
+                        <div className="text-xs text-cs-light/60 font-mono">{player.time}</div>
                       </div>
-                      <div className="text-xs text-cs-light/60 font-mono">{player.time}</div>
                     </div>
-                  </div>
-                ))
+                  );
+                })
               ) : (
                 <div className="text-center py-8 text-cs-light/60">
                   <Icon name="Users" size={48} className="mx-auto mb-4 opacity-50" />
                   <div>Нет игроков онлайн</div>
+                  <div className="text-sm mt-2">Сервер: 45.136.205.92:27015</div>
                 </div>
               )}
             </div>
