@@ -52,6 +52,9 @@ const Index = () => {
               <a href="/chat" className="text-cs-light hover:text-cs-orange transition-colors font-orbitron font-bold">
                 ЧАТ
               </a>
+              <a href="/rules" className="text-cs-red hover:text-cs-orange transition-colors font-orbitron font-bold">
+                ПРАВИЛА
+              </a>
             </div>
             <Button size="sm" className="bg-cs-orange hover:bg-cs-orange/80">
               <Icon name="User" size={16} className="mr-2" />
@@ -340,106 +343,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Server Rules */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto">
-          <h3 className="font-orbitron text-3xl font-bold text-cs-orange mb-8 text-center">
-            ПРАВИЛА СЕРВЕРА
-          </h3>
-          
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-cs-gray/80 border-cs-red/40 backdrop-blur-sm">
-              <CardHeader className="border-b border-cs-red/20">
-                <CardTitle className="font-orbitron text-cs-red flex items-center space-x-2">
-                  <Icon name="Shield" size={24} />
-                  <span>ОБЯЗАТЕЛЬНЫЕ ПРАВИЛА</span>
-                </CardTitle>
-                <p className="text-cs-light/80 text-sm">
-                  Нарушение правил ведет к предупреждению, киком или баном
-                </p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Main Rules */}
-                  <div className="space-y-4">
-                    <h4 className="font-orbitron text-lg text-cs-orange font-bold mb-3">
-                      ОСНОВНЫЕ ПРАВИЛА
-                    </h4>
-                    {[
-                      "Запрещен мат и оскорбления игроков",
-                      "Не спамить в чат и голосовой",
-                      "Запрещен читинг любого вида",
-                      "Не блокировать союзников",
-                      "Играть по задачам карты",
-                      "Уважать администрацию сервера"
-                    ].map((rule, index) => (
-                      <div key={index} className="flex items-start space-x-3 p-3 bg-cs-dark/30 rounded">
-                        <Icon name="CheckCircle" size={16} className="text-green-500 mt-0.5" />
-                        <span className="text-cs-light text-sm">{rule}</span>
-                      </div>
-                    ))}
-                  </div>
 
-                  {/* Additional Rules */}
-                  <div className="space-y-4">
-                    <h4 className="font-orbitron text-lg text-cs-orange font-bold mb-3">
-                      ДОПОЛНИТЕЛЬНО
-                    </h4>
-                    {[
-                      "Ник должен содержать только латиницу",
-                      "Запрещена реклама других серверов",
-                      "Не просить админку или привилегии",
-                      "Не обходить наказания с других аккаунтов",
-                      "Слушать указания администраторов",
-                      "Приятной игры и fair play!"
-                    ].map((rule, index) => (
-                      <div key={index} className="flex items-start space-x-3 p-3 bg-cs-dark/30 rounded">
-                        <Icon name="AlertTriangle" size={16} className="text-yellow-500 mt-0.5" />
-                        <span className="text-cs-light text-sm">{rule}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Penalties */}
-                <div className="mt-8 p-4 bg-cs-red/10 border border-cs-red/20 rounded">
-                  <h4 className="font-orbitron text-lg text-cs-red font-bold mb-3 flex items-center space-x-2">
-                    <Icon name="Ban" size={20} />
-                    <span>СИСТЕМА НАКАЗАНИЙ</span>
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="text-center p-3 bg-cs-dark/30 rounded">
-                      <Icon name="MessageSquareWarning" size={24} className="text-yellow-500 mx-auto mb-2" />
-                      <div className="text-sm font-semibold text-cs-light">ПРЕДУПРЕЖДЕНИЕ</div>
-                      <div className="text-xs text-cs-light/60">1-е нарушение</div>
-                    </div>
-                    <div className="text-center p-3 bg-cs-dark/30 rounded">
-                      <Icon name="UserX" size={24} className="text-orange-500 mx-auto mb-2" />
-                      <div className="text-sm font-semibold text-cs-light">КИК</div>
-                      <div className="text-xs text-cs-light/60">2-е нарушение</div>
-                    </div>
-                    <div className="text-center p-3 bg-cs-dark/30 rounded">
-                      <Icon name="Ban" size={24} className="text-red-500 mx-auto mb-2" />
-                      <div className="text-sm font-semibold text-cs-light">БАН</div>
-                      <div className="text-xs text-cs-light/60">3-е нарушение</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Contact Info */}
-                <div className="mt-6 text-center">
-                  <p className="text-cs-light/80 text-sm">
-                    Вопросы по правилам? Пишите в{" "}
-                    <a href="https://t.me/realguys90x" className="text-cs-orange hover:underline">
-                      @realguys90x
-                    </a>
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Ranking System */}
       <section className="py-16 px-6">
