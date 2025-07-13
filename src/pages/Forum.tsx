@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -57,6 +58,15 @@ const forumSections = [
 ];
 
 export default function Forum() {
+  const [userTopics, setUserTopics] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Загружаем созданные пользователем темы
+    const savedTopics = localStorage.getItem('forumTopics');
+    if (savedTopics) {
+      setUserTopics(JSON.parse(savedTopics));
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-cs-dark text-cs-light">
       {/* Header */}
@@ -142,6 +152,68 @@ export default function Forum() {
             </CardContent>
           </Card>
         </div>
+
+        {/* User Created Topics */}
+        {userTopics.length > 0 && (
+          <div className="mb-8">
+            <h3 className="font-orbitron text-xl font-bold text-cs-light mb-4">
+              🔥 НЕДАВНО СОЗДАННЫЕ ТЕМЫ
+            </h3>
+            <div className="space-y-3">
+              {userTopics.map((topic) => (
+                <Card key={topic.id} className="bg-cs-gray/80 border-green-500/30 backdrop-blur-sm hover:bg-cs-gray/90 transition-colors cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start space-x-3 flex-1">
+                        <Icon name="MessageSquare" size={24} className="text-green-500 mt-1" />
+                        <div className="flex-1">
+                          <h4 className="font-orbitron text-lg font-bold text-white mb-1">
+                            {topic.title}
+                          </h4>
+                          <p className="text-cs-light/70 text-sm mb-2 line-clamp-2">
+                            {topic.content}
+                          </p>
+                          <div className="flex items-center space-x-4 text-xs text-cs-light/60">
+                            <span className="flex items-center space-x-1">
+                              <Icon name="User" size={12} className="text-green-500" />
+                              <span className="text-green-500">{topic.author}</span>
+                            </span>
+                            <span className="flex items-center space-x-1">
+                              <Icon name="Clock" size={12} />
+                              <span>{new Date(topic.createdAt).toLocaleDateString('ru-RU')}</span>
+                            </span>
+                            <Badge variant="outline" className="border-green-500/40 text-green-500 text-xs">
+                              Новая тема
+                            </Badge>
+                          </div>
+                          {topic.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1 mt-2">
+                              {topic.tags.map((tag: string, tagIndex: number) => (
+                                <Badge key={tagIndex} variant="outline" className="border-cs-orange/40 text-cs-orange text-xs">
+                                  #{tag}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="border-green-500/40 text-green-500 hover:bg-green-500/20"
+                        >
+                          <Icon name="MessageCircle" size={14} className="mr-1" />
+                          Ответить
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Forum Sections */}
         <div className="space-y-4">

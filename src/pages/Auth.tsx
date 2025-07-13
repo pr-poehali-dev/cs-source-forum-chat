@@ -23,10 +23,57 @@ export default function Auth() {
 
   const handleEmailAuth = async (type: 'login' | 'register') => {
     setIsLoading(true);
-    // Здесь будет логика авторизации
+    
+    // Валидация данных
+    if (type === 'register') {
+      if (!formData.nickname || !formData.email || !formData.password || !formData.confirmPassword) {
+        alert('Заполните все обязательные поля!');
+        setIsLoading(false);
+        return;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        alert('Пароли не совпадают!');
+        setIsLoading(false);
+        return;
+      }
+      if (!formData.agreeToRules) {
+        alert('Необходимо согласиться с правилами сервера!');
+        setIsLoading(false);
+        return;
+      }
+    }
+    
+    // Имитация регистрации/входа
     setTimeout(() => {
       setIsLoading(false);
-      alert(`${type === 'login' ? 'Вход' : 'Регистрация'} успешно выполнена!`);
+      
+      if (type === 'register') {
+        // Сохраняем данные пользователя в localStorage
+        const userData = {
+          nickname: formData.nickname,
+          email: formData.email,
+          registeredAt: new Date().toISOString(),
+          isLoggedIn: true
+        };
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        alert(`Добро пожаловать, ${formData.nickname}! Регистрация прошла успешно!`);
+      } else {
+        // Проверяем существующего пользователя
+        const existingUser = localStorage.getItem('currentUser');
+        if (existingUser) {
+          const userData = JSON.parse(existingUser);
+          userData.isLoggedIn = true;
+          localStorage.setItem('currentUser', JSON.stringify(userData));
+          alert(`С возвращением, ${userData.nickname}!`);
+        } else {
+          alert('Пользователь не найден. Зарегистрируйтесь сначала.');
+          setIsLoading(false);
+          return;
+        }
+      }
+      
+      // Перенаправляем на главную
+      window.location.href = '/';
     }, 1500);
   };
 
@@ -98,7 +145,7 @@ export default function Auth() {
                       placeholder="твой@email.ru"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -109,7 +156,7 @@ export default function Auth() {
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
                     />
                   </div>
                   <Button 
@@ -136,7 +183,7 @@ export default function Auth() {
                       placeholder="ProGamer2000"
                       value={formData.nickname}
                       onChange={(e) => handleInputChange('nickname', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -147,7 +194,7 @@ export default function Auth() {
                       placeholder="твой@email.ru"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -158,7 +205,7 @@ export default function Auth() {
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -169,7 +216,7 @@ export default function Auth() {
                       placeholder="••••••••"
                       value={formData.confirmPassword}
                       onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                      className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                      className="bg-cs-dark/50 border-cs-orange/40 text-white placeholder:text-gray-400 focus:text-white"
                     />
                   </div>
                   

@@ -45,16 +45,55 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
     e.preventDefault();
     setIsSubmitting(true);
     
+    // Валидация
+    if (!formData.title.trim() || !formData.category || !formData.content.trim()) {
+      alert('Заполните все обязательные поля!');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Проверяем авторизацию
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+      alert('Для создания темы необходимо войти в аккаунт!');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    const user = JSON.parse(currentUser);
+    
+    // Создаем новую тему
+    const newTopic = {
+      id: Date.now().toString(),
+      title: formData.title,
+      category: formData.category,
+      content: formData.content,
+      tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+      author: user.nickname,
+      authorEmail: user.email,
+      createdAt: new Date().toISOString(),
+      views: 0,
+      replies: 0,
+      lastReply: null
+    };
+    
+    // Сохраняем в localStorage
+    const existingTopics = JSON.parse(localStorage.getItem('forumTopics') || '[]');
+    existingTopics.unshift(newTopic);
+    localStorage.setItem('forumTopics', JSON.stringify(existingTopics));
+    
     // Симуляция отправки данных
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Сброс формы и закрытие модального окна
     setFormData({ title: "", category: "", content: "", tags: "" });
     setIsSubmitting(false);
     setIsOpen(false);
     
-    // Здесь будет реальная логика создания темы
-    console.log("Создание темы:", formData);
+    alert(`Тема "${formData.title}" успешно создана!`);
+    
+    // Перезагружаем страницу чтобы отобразить новую тему
+    window.location.reload();
   };
 
   const isFormValid = formData.title.trim() && formData.category && formData.content.trim();
@@ -85,7 +124,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="Введите заголовок темы..."
-              className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange"
+              className="bg-cs-gray/40 border-cs-orange/40 text-white placeholder:text-gray-400 font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange focus:text-white"
               maxLength={100}
             />
             <div className="text-xs text-cs-light/60 text-right">
@@ -124,7 +163,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Опишите вашу тему подробно..."
-              className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 min-h-[120px] font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange"
+              className="bg-cs-gray/40 border-cs-orange/40 text-white placeholder:text-gray-400 min-h-[120px] font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange focus:text-white"
               maxLength={2000}
             />
             <div className="text-xs text-cs-light/60 text-right">
@@ -141,7 +180,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               value={formData.tags}
               onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
               placeholder="dust2, awp, тактика (через запятую)"
-              className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange"
+              className="bg-cs-gray/40 border-cs-orange/40 text-white placeholder:text-gray-400 font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange focus:text-white"
             />
             <div className="text-xs text-cs-light/60">
               Используйте теги для лучшего поиска темы
