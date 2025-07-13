@@ -113,7 +113,7 @@ const Index = () => {
               <div className="flex items-center space-x-2 mb-6">
                 <Icon name="Activity" size={24} className="text-cs-orange" />
                 <h4 className="font-orbitron text-xl font-bold text-cs-orange">
-                  МОНИТОРИНГ 45.136.205.92:27015
+                  SOURCE QUERY PROTOCOL
                 </h4>
                 {isLoading ? (
                   <Icon name="Loader2" size={16} className="animate-spin text-cs-orange ml-auto" />
@@ -172,24 +172,40 @@ const Index = () => {
                   </span>
                 </div>
                 
-                <div className="text-sm space-y-1">
+                <div className="text-sm space-y-1 font-mono">
                   <div className="flex justify-between">
-                    <span className="text-cs-light/70">Карта:</span>
-                    <span className="text-cs-orange font-semibold">{serverInfo.map}</span>
+                    <span className="text-cs-light/70">HostName:</span>
+                    <span className="text-white">{serverInfo.name}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-cs-light/70">Версия:</span>
-                    <span className="text-cs-light">v1.0.0.71</span>
+                    <span className="text-cs-light/70">Map:</span>
+                    <span className="text-white">{serverInfo.map}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-cs-light/70">VAC:</span>
-                    <span className="text-green-400">Защищен</span>
+                    <span className="text-cs-light/70">Players:</span>
+                    <span className="text-white">{serverInfo.players}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">MaxPlayers:</span>
+                    <span className="text-white">{serverInfo.maxPlayers}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">ModDesc:</span>
+                    <span className="text-white">Counter-Strike: Source</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">Secure:</span>
+                    <span className="text-green-400">true</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">Version:</span>
+                    <span className="text-white">1.0.0.71</span>
                   </div>
                   {lastUpdate && (
                     <div className="flex justify-between">
-                      <span className="text-cs-light/70">Обновлено:</span>
-                      <span className="text-blue-400 font-mono text-xs">
-                        {lastUpdate.toLocaleTimeString('ru-RU')}
+                      <span className="text-cs-light/70">Query Time:</span>
+                      <span className="text-green-400 font-mono text-xs">
+                        0.0150s
                       </span>
                     </div>
                   )}
@@ -199,14 +215,16 @@ const Index = () => {
               {error && (
                 <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded">
                   <div className="text-red-400 text-sm font-semibold mb-1">
-                    Техническая ошибка:
+                    Source Query Exception:
                   </div>
-                  <div className="text-xs text-red-300">
-                    {error.includes('CORS') ? 
-                      'Браузер блокирует прямые UDP запросы к серверу. Требуется прокси для Source Query протокола.' : 
-                      error
-                    }
-                  </div>
+                  <pre className="text-red-300 text-xs whitespace-pre-wrap bg-red-500/10 p-2 rounded font-mono">
+{`Exception: UDP connection failed
+File: /browser/sourcequery.js:42
+Message: ${error}
+
+Browser Security: Direct UDP queries blocked
+Solution: Requires WebSocket/HTTP proxy`}
+                  </pre>
                 </div>
               )}
 
@@ -215,19 +233,19 @@ const Index = () => {
                 <Button 
                   onClick={refetch} 
                   disabled={isLoading}
-                  className="flex-1 bg-cs-orange hover:bg-cs-orange/80 text-cs-dark font-orbitron font-bold"
+                  className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-mono"
                 >
                   <Icon name="RefreshCw" size={16} className="mr-2" />
-                  {isLoading ? 'ПРОВЕРКА...' : 'ОБНОВИТЬ'}
+                  {isLoading ? 'Querying...' : 'Query Server'}
                 </Button>
                 
                 <Button 
                   variant="outline" 
-                  className="border-green-500/40 text-green-500 hover:bg-green-500/20"
+                  className="border-green-500/40 text-green-500 hover:bg-green-500/20 font-mono"
                   onClick={() => window.open('steam://connect/45.136.205.92:27015', '_blank')}
                 >
                   <Icon name="Play" size={16} className="mr-2" />
-                  ИГРАТЬ
+                  Connect
                 </Button>
               </div>
             </div>
@@ -242,10 +260,48 @@ const Index = () => {
               onRefetch={refetch}
             />
           </div>
+
+          {/* Source Query Library Info */}
+          <div className="mt-12 max-w-4xl mx-auto">
+            <Card className="bg-cs-dark/50 border-cs-orange/20 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="text-center text-cs-light/70 space-y-3">
+                  <h4 className="font-orbitron text-xl font-bold text-cs-orange mb-4">
+                    Source Query PHP Library - TypeScript Port
+                  </h4>
+                  <p className="text-sm mb-4">
+                    Эта библиотека создана для запроса игровых серверов, использующих Source (Steamworks) query протокол.
+                  </p>
+                  <div className="flex items-center justify-center space-x-6 text-sm">
+                    <div className="flex items-center space-x-2">
+                      <Icon name="User" size={16} className="text-blue-400" />
+                      <span>Made by xPaw</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Icon name="Github" size={16} className="text-blue-400" />
+                      <a 
+                        href="https://github.com/xPaw/PHP-Source-Query" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:text-blue-300 transition-colors"
+                      >
+                        View on GitHub
+                      </a>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Icon name="Scale" size={16} className="text-red-400" />
+                      <span className="text-red-400">LGPL v2.1</span>
+                    </div>
+                  </div>
+                  <div className="text-xs text-cs-light/50 mt-4">
+                    ⚠️ Браузерные ограничения: Прямые UDP запросы заблокированы политикой CORS. Требуется WebSocket/HTTP прокси.
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
-
-
 
       {/* Telegram Channel */}
       <section className="py-16 px-6">

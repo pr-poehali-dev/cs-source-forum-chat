@@ -50,11 +50,11 @@ export const PlayersCard = ({
   const realPlayersCount = realPlayers.length;
   const botsCount = totalPlayersCount - realPlayersCount;
   return (
-    <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+    <Card className="bg-cs-gray/95 border-cs-orange/30 backdrop-blur-sm shadow-xl">
       <CardHeader>
         <CardTitle className="font-orbitron text-cs-orange flex items-center space-x-2">
-          <Icon name="Users" size={24} />
-          <span>ИГРОКИ ОНЛАЙН</span>
+          <Icon name="Users" size={20} />
+          <span>Players</span>
           <div className="ml-auto flex items-center space-x-2">
             {isLoading ? (
               <Icon name="Loader2" size={16} className="animate-spin text-cs-orange" />
@@ -68,16 +68,9 @@ export const PlayersCard = ({
                 <Icon name="RefreshCw" size={14} />
               </Button>
             )}
-            <div className="flex items-center space-x-2">
-              <Badge variant="outline" className="border-green-500 text-green-500">
-                {serverInfo.players}/{serverInfo.maxPlayers}
-              </Badge>
-              {realPlayersCount !== totalPlayersCount && realPlayersCount > 0 && (
-                <Badge variant="outline" className="border-blue-400 text-blue-400 text-xs">
-                  {realPlayersCount} живых
-                </Badge>
-              )}
-            </div>
+            <Badge variant="outline" className="border-blue-400 text-blue-400 font-mono">
+              {totalPlayersCount}
+            </Badge>
           </div>
         </CardTitle>
       </CardHeader>
@@ -136,82 +129,58 @@ export const PlayersCard = ({
               )}
             </div>
 
-            {/* Summary */}
-            {players.length > 0 && (
-              <div className="mb-4 p-3 bg-cs-dark/20 rounded">
-                <div className="grid grid-cols-3 gap-4 text-center text-sm">
-                  <div>
-                    <div className="text-cs-orange font-bold">{totalPlayersCount}</div>
-                    <div className="text-cs-light/70">Всего</div>
-                  </div>
-                  <div>
-                    <div className="text-blue-400 font-bold">{realPlayersCount}</div>
-                    <div className="text-cs-light/70">Живые</div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400 font-bold">{botsCount}</div>
-                    <div className="text-cs-light/70">Боты</div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Players List */}
-            <div className="space-y-2">
-              {players.length > 0 ? (
-                players.map((player, index) => {
-                  const isBot = player.name.toLowerCase().includes('bot') || 
-                                player.name.toLowerCase().includes('бот') || 
-                                player.name.toLowerCase().includes('[bot]');
-                  
-                  return (
-                    <div key={index} className={`flex items-center justify-between p-3 rounded hover:bg-cs-dark/40 transition-colors ${
-                      isBot ? 'bg-cs-dark/20 opacity-70' : 'bg-cs-dark/30'
-                    }`}>
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-1">
-                          <span className="text-xs text-cs-orange font-mono min-w-[20px]">
-                            #{index + 1}
-                          </span>
-                          <Icon 
-                            name="Circle" 
-                            size={8} 
-                            className={player.ping < 50 ? "text-green-500" : player.ping < 100 ? "text-yellow-500" : "text-red-500"} 
-                          />
-                          {isBot && (
-                            <Icon name="Bot" size={12} className="text-gray-400" />
-                          )}
-                        </div>
-                        <span className={`font-semibold truncate max-w-[120px] ${
-                          isBot ? 'text-gray-400' : 'text-cs-light'
-                        }`}>
-                          {player.name}
-                        </span>
-                      </div>
-                      <div className="text-right space-y-1">
-                        <div className="flex items-center space-x-3 text-xs">
-                          <span className={`font-mono ${isBot ? 'text-gray-400' : 'text-cs-orange'}`}>
-                            {player.score}
-                          </span>
-                          <span className={`font-mono ${isBot ? 'text-gray-500' : 'text-green-500'}`}>
-                            {player.kills}/{player.deaths}
-                          </span>
-                          <span className={`font-mono ${isBot ? 'text-gray-500' : 'text-blue-400'}`}>
-                            {player.ping}ms
-                          </span>
-                        </div>
-                        <div className="text-xs text-cs-light/60 font-mono">{player.time}</div>
-                      </div>
-                    </div>
-                  );
-                })
-              ) : (
-                <div className="text-center py-8 text-cs-light/60">
-                  <Icon name="Users" size={48} className="mx-auto mb-4 opacity-50" />
-                  <div>Нет игроков онлайн</div>
-                  <div className="text-sm mt-2">Сервер: 45.136.205.92:27015</div>
-                </div>
-              )}
+            {/* Players Table (PHP Style) */}
+            <div className="overflow-hidden max-h-[400px] overflow-y-auto">
+              <table className="w-full">
+                <thead className="bg-cs-dark/80 sticky top-0">
+                  <tr className="border-b border-cs-orange/40">
+                    <th className="px-4 py-3 text-left text-cs-orange font-orbitron text-sm font-bold">
+                      Player
+                    </th>
+                    <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold w-20">
+                      Frags
+                    </th>
+                    <th className="px-4 py-3 text-center text-cs-orange font-orbitron text-sm font-bold w-20">
+                      Time
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {players.length > 0 ? (
+                    players.map((player, index) => {
+                      const isBot = player.name.toLowerCase().includes('bot') || 
+                                    player.name.toLowerCase().includes('бот') || 
+                                    player.name.toLowerCase().includes('[bot]');
+                      
+                      return (
+                        <tr key={index} className="border-b border-cs-orange/20 hover:bg-cs-dark/40 transition-colors">
+                          <td className="px-4 py-3 text-white font-semibold truncate max-w-[150px]">
+                            <div className="flex items-center space-x-2">
+                              {isBot && <Icon name="Bot" size={12} className="text-gray-400" />}
+                              <span className={isBot ? 'text-gray-400' : 'text-white'}>
+                                {player.name}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-center text-cs-orange font-mono font-bold">
+                            {player.score || player.kills}
+                          </td>
+                          <td className="px-4 py-3 text-center text-blue-400 font-mono text-sm">
+                            {player.time}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={3} className="px-4 py-8 text-center text-white/60">
+                        <Icon name="Users" size={24} className="mx-auto mb-2 opacity-50" />
+                        No players received
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </>
         )}
