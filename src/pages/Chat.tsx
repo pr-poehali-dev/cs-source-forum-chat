@@ -99,16 +99,22 @@ export default function Chat() {
       {/* Header */}
       <div className="bg-cs-gray/80 backdrop-blur-sm border-b border-cs-orange/20">
         <div className="container mx-auto px-6 py-8">
-          <div className="flex items-center space-x-4">
-            <Icon name="MessageCircle" size={40} className="text-cs-orange" />
-            <div>
-              <h1 className="font-orbitron text-4xl font-black text-cs-orange cs-text-shadow">
-                ЧАТ
-              </h1>
-              <p className="text-cs-light/80 font-orbitron text-sm tracking-widest">
-                [ОБЩЕНИЕ] ОНЛАЙН: 47 ИГРОКОВ
-              </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Icon name="MessageCircle" size={40} className="text-cs-orange" />
+              <div>
+                <h1 className="font-orbitron text-4xl font-black text-cs-orange cs-text-shadow">
+                  ЧАТ
+                </h1>
+                <p className="text-cs-light/80 font-orbitron text-sm tracking-widest">
+                  [ОБЩЕНИЕ] ОНЛАЙН: 47 ИГРОКОВ
+                </p>
+              </div>
             </div>
+            <a href="/" className="bg-cs-orange hover:bg-cs-orange/80 text-cs-dark px-6 py-3 rounded font-orbitron font-bold transition-colors flex items-center space-x-2">
+              <Icon name="Home" size={20} />
+              <span>ГЛАВНАЯ</span>
+            </a>
           </div>
         </div>
       </div>
