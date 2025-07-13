@@ -51,30 +51,7 @@ const forumSections = [
     },
     icon: "Users"
   },
-  {
-    title: "ТУРНИРЫ И СОРЕВНОВАНИЯ",
-    description: "Анонсы турниров, результаты матчей",
-    topics: 45,
-    posts: 678,
-    lastPost: {
-      title: "Результаты турнира 12.07",
-      author: "Tournament_Admin",
-      time: "1 день назад"
-    },
-    icon: "Trophy"
-  },
-  {
-    title: "ФЛЕЙМ И ТРЕШ",
-    description: "Для всего остального",
-    topics: 312,
-    posts: 4521,
-    lastPost: {
-      title: "Кто самый крутой?",
-      author: "RandomPlayer",
-      time: "30 минут назад"
-    },
-    icon: "Flame"
-  }
+
 ];
 
 export default function Forum() {
@@ -108,13 +85,13 @@ export default function Forum() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-cs-orange font-orbitron">1,247</div>
+              <div className="text-2xl font-bold text-cs-orange font-orbitron">890</div>
               <div className="text-sm text-cs-light/80">ВСЕГО ТЕМ</div>
             </CardContent>
           </Card>
           <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-cs-orange font-orbitron">18,456</div>
+              <div className="text-2xl font-bold text-cs-orange font-orbitron">13,005</div>
               <div className="text-sm text-cs-light/80">ВСЕГО ПОСТОВ</div>
             </CardContent>
           </Card>
