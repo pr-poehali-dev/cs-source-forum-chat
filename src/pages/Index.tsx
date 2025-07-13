@@ -53,24 +53,6 @@ const Index = () => {
                 ЧАТ
               </a>
             </div>
-              {[
-                "Главная",
-                "Форум",
-                "Чат",
-                "Серверы",
-                "Статистика",
-                "Новости",
-                "О нас",
-              ].map((item) => (
-                <Button
-                  key={item}
-                  variant="ghost"
-                  className="text-cs-light hover:text-cs-orange hover:bg-cs-orange/10"
-                >
-                  {item}
-                </Button>
-              ))}
-            </div>
             <Button size="sm" className="bg-cs-orange hover:bg-cs-orange/80">
               <Icon name="User" size={16} className="mr-2" />
               Войти
