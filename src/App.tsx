@@ -9,6 +9,7 @@ import Forum from "./pages/Forum";
 import Chat from "./pages/Chat";
 import Rules from "./pages/Rules";
 import Auth from "./pages/Auth";
+import Stats from "./pages/Stats";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/forum" element={<Forum />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/rules" element={<Rules />} />
+          <Route path="/stats" element={<Stats />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

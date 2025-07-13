@@ -67,6 +67,17 @@ export const Navigation = () => {
             </a>
             
             <a 
+              href="/stats" 
+              className="group relative px-6 py-3 bg-gradient-to-r from-purple-600/20 to-purple-600/10 border-2 border-purple-500/40 rounded-lg font-orbitron font-bold text-cs-light hover:text-purple-300 transition-all duration-300 hover:border-purple-400/80 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-purple-500/20 hover:shadow-lg hover:shadow-purple-400/20 transform hover:scale-105"
+            >
+              <div className="flex items-center space-x-2">
+                <Icon name="BarChart3" size={18} className="group-hover:text-purple-300 transition-colors" />
+                <span className="tracking-wider">СТАТИСТИКА</span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+            </a>
+            
+            <a 
               href="/rules" 
               className="group relative px-6 py-3 bg-gradient-to-r from-cs-red/20 to-cs-red/10 border-2 border-cs-red/40 rounded-lg font-orbitron font-bold text-cs-light hover:text-red-300 transition-all duration-300 hover:border-red-400/80 hover:bg-gradient-to-r hover:from-red-500/30 hover:to-red-500/20 hover:shadow-lg hover:shadow-red-400/20 transform hover:scale-105"
             >
@@ -91,7 +102,7 @@ export const Navigation = () => {
       
       {/* Mobile Navigation */}
       <div className="md:hidden bg-cs-gray/90 border-t border-cs-orange/20 px-6 py-4">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-3">
           <a 
             href="/" 
             className="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-cs-orange/20 to-cs-orange/10 border border-cs-orange/40 rounded-lg font-orbitron font-bold text-cs-light hover:text-cs-orange transition-all duration-300"
@@ -114,6 +125,14 @@ export const Navigation = () => {
           >
             <Icon name="MessageCircle" size={16} />
             <span className="text-sm">ЧАТ</span>
+          </a>
+          
+          <a 
+            href="/stats" 
+            className="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-purple-600/20 to-purple-600/10 border border-purple-500/40 rounded-lg font-orbitron font-bold text-cs-light hover:text-purple-300 transition-all duration-300"
+          >
+            <Icon name="BarChart3" size={16} />
+            <span className="text-sm">СТАТЫ</span>
           </a>
           
           <a 
