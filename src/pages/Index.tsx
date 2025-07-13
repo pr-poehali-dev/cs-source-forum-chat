@@ -56,10 +56,12 @@ const Index = () => {
                 ПРАВИЛА
               </a>
             </div>
-            <Button size="sm" className="bg-cs-orange hover:bg-cs-orange/80">
-              <Icon name="User" size={16} className="mr-2" />
-              Войти
-            </Button>
+            <a href="/auth">
+              <Button size="sm" className="bg-cs-orange hover:bg-cs-orange/80">
+                <Icon name="User" size={16} className="mr-2" />
+                Войти
+              </Button>
+            </a>
           </div>
         </div>
       </nav>
