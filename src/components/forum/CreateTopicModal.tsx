@@ -29,9 +29,10 @@ const forumCategories = [
 
 interface CreateTopicModalProps {
   children: React.ReactNode;
+  onTopicCreated?: () => void;
 }
 
-export default function CreateTopicModal({ children }: CreateTopicModalProps) {
+export default function CreateTopicModal({ children, onTopicCreated }: CreateTopicModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -92,8 +93,13 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
     
     alert(`Тема "${formData.title}" успешно создана!`);
     
-    // Перезагружаем страницу чтобы отобразить новую тему
-    window.location.reload();
+    // Вызываем колбек для обновления данных
+    if (onTopicCreated) {
+      onTopicCreated();
+    } else {
+      // Fallback к перезагрузке страницы если колбек не передан
+      window.location.reload();
+    }
   };
 
   const isFormValid = formData.title.trim() && formData.category && formData.content.trim();

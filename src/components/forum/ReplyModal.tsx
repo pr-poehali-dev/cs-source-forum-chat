@@ -11,14 +11,16 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import { getCurrentUser, addReply } from "@/utils/forumUtils";
 
 interface ReplyModalProps {
   children: React.ReactNode;
   topicId: string;
   topicTitle: string;
+  onReplyAdded?: () => void;
 }
 
-export default function ReplyModal({ children, topicId, topicTitle }: ReplyModalProps) {
+export default function ReplyModal({ children, topicId, topicTitle, onReplyAdded }: ReplyModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [replyContent, setReplyContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,63 +29,42 @@ export default function ReplyModal({ children, topicId, topicTitle }: ReplyModal
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Валидация
     if (!replyContent.trim()) {
       alert('Напишите ответ!');
       setIsSubmitting(false);
       return;
     }
     
-    // Проверяем авторизацию
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = getCurrentUser();
     if (!currentUser) {
       alert('Для ответа на тему необходимо войти в аккаунт!');
       setIsSubmitting(false);
       return;
     }
     
-    const user = JSON.parse(currentUser);
-    
-    // Создаем новый ответ
-    const newReply = {
-      id: Date.now().toString(),
-      topicId: topicId,
-      content: replyContent,
-      author: user.nickname,
-      authorEmail: user.email,
-      createdAt: new Date().toISOString(),
-      likes: 0
-    };
-    
-    // Сохраняем ответ в localStorage
-    const existingReplies = JSON.parse(localStorage.getItem('forumReplies') || '[]');
-    existingReplies.unshift(newReply);
-    localStorage.setItem('forumReplies', JSON.stringify(existingReplies));
-    
-    // Обновляем счетчик ответов в теме
-    const existingTopics = JSON.parse(localStorage.getItem('forumTopics') || '[]');
-    const topicIndex = existingTopics.findIndex((topic: any) => topic.id === topicId);
-    if (topicIndex >= 0) {
-      existingTopics[topicIndex].replies = (existingTopics[topicIndex].replies || 0) + 1;
-      existingTopics[topicIndex].lastReply = {
-        author: user.nickname,
-        time: "только что"
-      };
-      localStorage.setItem('forumTopics', JSON.stringify(existingTopics));
+    try {
+      // Имитируем задержку отправки
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      addReply(topicId, replyContent, currentUser);
+      
+      setReplyContent("");
+      setIsSubmitting(false);
+      setIsOpen(false);
+      
+      alert(`Ответ на тему "${topicTitle}" успешно отправлен!`);
+      
+      // Вызываем колбек для обновления данных
+      if (onReplyAdded) {
+        onReplyAdded();
+      } else {
+        // Fallback к перезагрузке страницы если колбек не передан
+        window.location.reload();
+      }
+    } catch (error) {
+      alert('Ошибка при отправке ответа');
+      setIsSubmitting(false);
     }
-    
-    // Симуляция отправки данных
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Сброс формы и закрытие модального окна
-    setReplyContent("");
-    setIsSubmitting(false);
-    setIsOpen(false);
-    
-    alert(`Ответ на тему "${topicTitle}" успешно отправлен!`);
-    
-    // Перезагружаем страницу чтобы отобразить новый ответ
-    window.location.reload();
   };
 
   return (
