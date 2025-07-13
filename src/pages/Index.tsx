@@ -96,55 +96,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Telegram Channel */}
-      <section className="py-12 px-6">
-        <div className="container mx-auto">
-          <div className="flex justify-center">
-            <Card className="bg-gradient-to-r from-cs-gray/90 to-cs-dark/90 border-2 border-cs-orange/40 backdrop-blur-sm hover:border-cs-orange/60 transition-all duration-300 hover:scale-105 max-w-md">
-              <CardContent className="p-8 text-center">
-                <div className="flex flex-col items-center space-y-4">
-                  {/* Telegram Icon */}
-                  <div className="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center text-white text-2xl font-bold">
-                    <Icon name="Send" size={32} className="rotate-45" />
-                  </div>
-                  
-                  {/* Title */}
-                  <div>
-                    <h3 className="font-orbitron text-2xl font-black text-cs-orange mb-2">
-                      НАШ TELEGRAM
-                    </h3>
-                    <p className="text-cs-light/80 text-sm mb-4">
-                      Новости, турниры и общение
-                    </p>
-                  </div>
 
-                  {/* Channel Handle */}
-                  <div className="bg-cs-dark/50 px-4 py-2 rounded-lg border border-cs-orange/20">
-                    <span className="text-cs-orange font-mono text-lg">@realguys90x</span>
-                  </div>
-
-                  {/* Subscribe Button */}
-                  <a 
-                    href="https://t.me/realguys90x" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-full"
-                  >
-                    <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-orbitron font-bold py-3 text-lg">
-                      <Icon name="Send" size={20} className="mr-2 rotate-45" />
-                      ПОДПИШИСЬ
-                    </Button>
-                  </a>
-
-                  <div className="text-xs text-cs-light/60">
-                    Будь в курсе всех событий сервера!
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Server Monitoring */}
       <section className="py-16 px-6">
@@ -331,6 +283,55 @@ const Index = () => {
       </section>
 
 
+
+      {/* Telegram Channel */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto">
+          <div className="max-w-4xl mx-auto">
+            <Card className="bg-gradient-to-r from-blue-600/20 to-cs-gray/90 border-2 border-blue-500/40 backdrop-blur-sm hover:border-blue-500/60 transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-8">
+                  {/* Left side - Icon and Info */}
+                  <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                    <div className="w-20 h-20 bg-blue-500 rounded-xl flex items-center justify-center text-white">
+                      <Icon name="Send" size={40} className="rotate-45" />
+                    </div>
+                    
+                    <div className="text-center md:text-left">
+                      <h3 className="font-orbitron text-3xl font-black text-cs-orange mb-2">
+                        НАШ TELEGRAM
+                      </h3>
+                      <p className="text-cs-light/80 text-lg mb-3">
+                        Новости, турниры и общение с игроками
+                      </p>
+                      <div className="bg-cs-dark/50 px-4 py-2 rounded-lg border border-blue-500/20 inline-block">
+                        <span className="text-blue-400 font-mono text-xl">@realguys90x</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right side - Button */}
+                  <div className="flex flex-col items-center space-y-3">
+                    <a 
+                      href="https://t.me/realguys90x" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <Button className="bg-blue-500 hover:bg-blue-600 text-white font-orbitron font-bold py-4 px-8 text-lg">
+                        <Icon name="Send" size={24} className="mr-3 rotate-45" />
+                        ПОДПИШИСЬ
+                      </Button>
+                    </a>
+                    <div className="text-sm text-cs-light/60 text-center">
+                      Будь в курсе всех событий!
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Ranking System */}
       <section className="py-16 px-6">
