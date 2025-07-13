@@ -57,7 +57,7 @@ const Index = () => {
           </h3>
 
           {/* Server Connection Info */}
-          <div className="max-w-4xl mx-auto mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             <ServerStatusCard 
               serverInfo={serverInfo}
               isLoading={isLoading}
@@ -65,6 +65,36 @@ const Index = () => {
               lastUpdate={lastUpdate}
               onRefetch={refetch}
             />
+
+            <div className="space-y-6">
+              <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
+                <a
+                  href="http://www.myarena.ru/game-monitoring.html?game=110421"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="//img.myarena.ru/110421/560_1_FF9A37_FFFFFF_FF9A37_0.png"
+                    alt="Статистика сервера #1"
+                    className="rounded hover:opacity-80 transition-opacity w-full"
+                  />
+                </a>
+              </div>
+              
+              <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
+                <a
+                  href="http://www.myarena.ru/game-monitoring.html?game=108751"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="//img.myarena.ru/108751/560.png"
+                    alt="Статистика сервера #2"
+                    className="rounded hover:opacity-80 transition-opacity w-full"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>
