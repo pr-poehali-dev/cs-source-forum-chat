@@ -72,10 +72,16 @@ export default function Forum() {
                 </p>
               </div>
             </div>
-            <a href="/" className="bg-cs-orange hover:bg-cs-orange/80 text-cs-dark px-6 py-3 rounded font-orbitron font-bold transition-colors flex items-center space-x-2">
-              <Icon name="Home" size={20} />
-              <span>ГЛАВНАЯ</span>
-            </a>
+            <div className="flex items-center space-x-4">
+              <a href="/chat" className="bg-cs-gray/80 hover:bg-cs-gray text-cs-light px-4 py-2 rounded font-orbitron font-bold transition-colors flex items-center space-x-2">
+                <Icon name="MessageCircle" size={16} />
+                <span>ЧАТ</span>
+              </a>
+              <a href="/" className="bg-cs-orange hover:bg-cs-orange/80 text-cs-dark px-6 py-3 rounded font-orbitron font-bold transition-colors flex items-center space-x-2">
+                <Icon name="Home" size={20} />
+                <span>ГЛАВНАЯ</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

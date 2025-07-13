@@ -85,18 +85,31 @@ const Index = () => {
             <Button
               size="lg"
               className="bg-cs-orange hover:bg-cs-orange/80 font-semibold"
+              onClick={() => navigator.clipboard.writeText('connect 45.136.205.92:27015')}
             >
               <Icon name="Play" size={20} className="mr-2" />
               Играть сейчас
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-cs-orange text-cs-orange hover:bg-cs-orange hover:text-white"
-            >
-              <Icon name="Users" size={20} className="mr-2" />
-              Присоединиться к форуму
-            </Button>
+            <a href="/forum">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-cs-orange text-cs-orange hover:bg-cs-orange hover:text-white w-full"
+              >
+                <Icon name="Users" size={20} className="mr-2" />
+                Перейти на форум
+              </Button>
+            </a>
+            <a href="/chat">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-cs-blue text-cs-blue hover:bg-cs-blue hover:text-white w-full"
+              >
+                <Icon name="MessageSquare" size={20} className="mr-2" />
+                Открыть чат
+              </Button>
+            </a>
           </div>
         </div>
         
