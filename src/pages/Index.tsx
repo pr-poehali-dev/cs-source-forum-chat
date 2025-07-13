@@ -323,22 +323,7 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <div className="mt-6">
-                  <div className="text-sm text-cs-light/80 mb-2">Популярные карты:</div>
-                  <div className="space-y-2">
-                    {[
-                      { map: "de_dust2", plays: "2,341" },
-                      { map: "de_aztec", plays: "1,892" },
-                      { map: "cs_office", plays: "1,456" },
-                      { map: "de_inferno", plays: "1,203" }
-                    ].map((mapData, index) => (
-                      <div key={index} className="flex justify-between items-center p-2 bg-cs-dark/30 rounded">
-                        <span className="text-cs-light font-mono">{mapData.map}</span>
-                        <span className="text-cs-orange">{mapData.plays} игр</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+
               </CardContent>
             </Card>
           </div>
