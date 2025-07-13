@@ -235,7 +235,7 @@ export default function Chat() {
               <CardContent className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-cs-light/80">IP:</span>
-                  <span className="text-cs-orange font-mono">192.168.1.100:27015</span>
+                  <span className="text-cs-orange font-mono">45.136.205.92:27015</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-cs-light/80">Карта:</span>

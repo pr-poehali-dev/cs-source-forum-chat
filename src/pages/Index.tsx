@@ -98,8 +98,37 @@ const Index = () => {
             МОНИТОРИНГ СЕРВЕРОВ
           </h3>
 
-          {/* MyArena Server Stats */}
-          <div className="flex justify-center mb-12">
+          {/* Server Connection Info */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="font-orbitron text-cs-orange flex items-center space-x-2">
+                  <Icon name="Server" size={24} />
+                  <span>ПОДКЛЮЧЕНИЕ К СЕРВЕРУ</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-cs-dark/50 p-4 rounded border border-cs-orange/20">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-cs-orange font-mono mb-2">
+                      45.136.205.92:27015
+                    </div>
+                    <div className="text-sm text-cs-light/80 mb-4">IP адрес сервера</div>
+                    <Button 
+                      className="bg-cs-orange hover:bg-cs-orange/80 text-cs-dark font-orbitron font-bold"
+                      onClick={() => navigator.clipboard.writeText('45.136.205.92:27015')}
+                    >
+                      <Icon name="Copy" size={16} className="mr-2" />
+                      СКОПИРОВАТЬ
+                    </Button>
+                  </div>
+                </div>
+                <div className="text-xs text-cs-light/60 text-center">
+                  Вставьте этот IP в консоль CS:S командой: connect 45.136.205.92:27015
+                </div>
+              </CardContent>
+            </Card>
+
             <div className="bg-cs-gray/80 border border-cs-orange/20 rounded-lg p-4 backdrop-blur-sm">
               <a
                 href="http://www.myarena.ru/game-monitoring.html?game=110421"
@@ -109,7 +138,7 @@ const Index = () => {
                 <img
                   src="//img.myarena.ru/110421/560.png"
                   alt="Статистика сервера"
-                  className="rounded hover:opacity-80 transition-opacity"
+                  className="rounded hover:opacity-80 transition-opacity w-full"
                 />
               </a>
             </div>
@@ -164,6 +193,99 @@ const Index = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Player Statistics */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto">
+          <h3 className="font-orbitron text-3xl font-bold text-cs-orange mb-8 text-center">
+            СТАТИСТИКА ИГРОКОВ
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Recent Players */}
+            <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="font-orbitron text-cs-orange flex items-center space-x-2">
+                  <Icon name="Users" size={24} />
+                  <span>НЕДАВНИЕ ИГРОКИ</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="max-h-[400px] overflow-y-auto">
+                <div className="space-y-3">
+                  {[
+                    { nick: "ProGamer2000", lastSeen: "2 минуты назад", server: "45.136.205.92:27015" },
+                    { nick: "HeadShot_King", lastSeen: "15 минут назад", server: "45.136.205.92:27015" },
+                    { nick: "NoobSlayer", lastSeen: "1 час назад", server: "45.136.205.92:27015" },
+                    { nick: "CSS_Legend", lastSeen: "2 часа назад", server: "45.136.205.92:27015" },
+                    { nick: "Player_228", lastSeen: "3 часа назад", server: "45.136.205.92:27015" },
+                    { nick: "ClanLeader", lastSeen: "5 часов назад", server: "45.136.205.92:27015" },
+                    { nick: "RandomPlayer", lastSeen: "1 день назад", server: "45.136.205.92:27015" },
+                    { nick: "Admin_Vitalik", lastSeen: "2 дня назад", server: "45.136.205.92:27015" }
+                  ].map((player, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-cs-dark/30 rounded">
+                      <div className="flex items-center space-x-3">
+                        <Icon name="Circle" size={8} className={index < 3 ? "text-green-500" : "text-gray-500"} />
+                        <span className="font-semibold text-cs-light">{player.nick}</span>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-cs-light/80">{player.lastSeen}</div>
+                        <div className="text-xs text-cs-orange font-mono">{player.server}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Server Stats */}
+            <Card className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="font-orbitron text-cs-orange flex items-center space-x-2">
+                  <Icon name="BarChart3" size={24} />
+                  <span>СТАТИСТИКА СЕРВЕРА</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-cs-dark/30 p-4 rounded text-center">
+                    <div className="text-2xl font-bold text-cs-orange font-orbitron">1,247</div>
+                    <div className="text-sm text-cs-light/80">Всего игроков</div>
+                  </div>
+                  <div className="bg-cs-dark/30 p-4 rounded text-center">
+                    <div className="text-2xl font-bold text-green-500 font-orbitron">24/32</div>
+                    <div className="text-sm text-cs-light/80">Сейчас онлайн</div>
+                  </div>
+                  <div className="bg-cs-dark/30 p-4 rounded text-center">
+                    <div className="text-2xl font-bold text-cs-orange font-orbitron">156</div>
+                    <div className="text-sm text-cs-light/80">Сегодня играли</div>
+                  </div>
+                  <div className="bg-cs-dark/30 p-4 rounded text-center">
+                    <div className="text-2xl font-bold text-cs-orange font-orbitron">15ms</div>
+                    <div className="text-sm text-cs-light/80">Средний пинг</div>
+                  </div>
+                </div>
+                
+                <div className="mt-6">
+                  <div className="text-sm text-cs-light/80 mb-2">Популярные карты:</div>
+                  <div className="space-y-2">
+                    {[
+                      { map: "de_dust2", plays: "2,341" },
+                      { map: "de_aztec", plays: "1,892" },
+                      { map: "cs_office", plays: "1,456" },
+                      { map: "de_inferno", plays: "1,203" }
+                    ].map((mapData, index) => (
+                      <div key={index} className="flex justify-between items-center p-2 bg-cs-dark/30 rounded">
+                        <span className="text-cs-light font-mono">{mapData.map}</span>
+                        <span className="text-cs-orange">{mapData.plays} игр</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
