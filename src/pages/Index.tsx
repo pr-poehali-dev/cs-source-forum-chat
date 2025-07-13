@@ -458,15 +458,33 @@ const Index = () => {
                 {error ? (
                   <div className="text-center py-8">
                     <Icon name="WifiOff" size={48} className="text-red-500 mx-auto mb-4" />
-                    <div className="text-red-400 font-orbitron font-bold mb-2">СЕРВЕР НЕДОСТУПЕН</div>
-                    <div className="text-cs-light/60 text-sm mb-4">{error}</div>
-                    <Button 
-                      onClick={refetch} 
-                      className="bg-cs-orange hover:bg-cs-orange/80 text-cs-dark font-orbitron"
-                    >
-                      <Icon name="RefreshCw" size={16} className="mr-2" />
-                      ПЕРЕПОДКЛЮЧИТЬСЯ
-                    </Button>
+                    <div className="text-red-400 font-orbitron font-bold mb-2">
+                      ПОДКЛЮЧЕНИЕ К 45.136.205.92:27015
+                    </div>
+                    <div className="text-yellow-400 font-orbitron text-sm mb-3">
+                      ⚠️ CORS ограничения браузера
+                    </div>
+                    <div className="text-cs-light/70 text-sm mb-4 max-w-md mx-auto">
+                      Браузер блокирует прямые UDP запросы к Source Query. Для получения реальных данных требуется:
+                      <br />• Серверный прокси для Source Query
+                      <br />• Настройка CORS на сервере
+                      <br />• Использование WebSocket моста
+                    </div>
+                    <div className="bg-cs-dark/50 p-3 rounded mb-4 text-xs text-cs-light/60">
+                      Техническая ошибка: {error}
+                    </div>
+                    <div className="space-y-2">
+                      <Button 
+                        onClick={refetch} 
+                        className="bg-cs-orange hover:bg-cs-orange/80 text-cs-dark font-orbitron"
+                      >
+                        <Icon name="RefreshCw" size={16} className="mr-2" />
+                        ПОВТОРИТЬ ЗАПРОС
+                      </Button>
+                      <div className="text-xs text-cs-light/50">
+                        Сервер: 45.136.205.92:27015
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <>
