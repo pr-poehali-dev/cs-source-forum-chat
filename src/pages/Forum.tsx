@@ -404,7 +404,32 @@ export default function Forum() {
                                   <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="h-6 px-2 text-xs text-blue-400 hover:bg-blue-500/20"
+                                    onClick={() => {
+                                      const currentUser = localStorage.getItem('currentUser');
+                                      if (!currentUser) {
+                                        alert('Для оценки ответа необходимо войти в аккаунт!');
+                                        return;
+                                      }
+                                      
+                                      const user = JSON.parse(currentUser);
+                                      const likeKey = `like_${reply.id}_${user.email}`;
+                                      const hasLiked = localStorage.getItem(likeKey);
+                                      
+                                      if (hasLiked) {
+                                        alert('Вы уже оценили этот ответ!');
+                                        return;
+                                      }
+                                      
+                                      const updatedReplies = topicReplies.map(r => 
+                                        r.id === reply.id 
+                                          ? { ...r, likes: (r.likes || 0) + 1 }
+                                          : r
+                                      );
+                                      setTopicReplies(updatedReplies);
+                                      localStorage.setItem('forumReplies', JSON.stringify(updatedReplies));
+                                      localStorage.setItem(likeKey, 'true');
+                                    }}
+                                    className="h-6 px-2 text-xs text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 transition-colors"
                                   >
                                     <Icon name="ThumbsUp" size={12} className="mr-1" />
                                     {reply.likes || 0}

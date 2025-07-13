@@ -6,6 +6,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { ServerStatusCard } from "@/components/home/ServerStatusCard";
 import { PlayersCard } from "@/components/home/PlayersCard";
 import { TopPlayersCard } from "@/components/home/TopPlayersCard";
+import ServerStats from "@/components/ServerStats";
 import { generateTopPlayers, getRankInfo } from "@/utils/playerUtils";
 import Icon from "@/components/ui/icon";
 
@@ -46,6 +47,16 @@ const Index = () => {
       <div className="relative z-10">
         <Navigation />
         <HeroSection />
+
+        {/* Статистика сервера */}
+        <div className="container mx-auto px-6 py-12">
+          <ServerStats />
+        </div>
+
+        {/* Статистика сервера */}
+        <div className="container mx-auto px-6 py-12">
+          <ServerStats />
+        </div>
 
 
 
