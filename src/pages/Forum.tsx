@@ -240,6 +240,23 @@ export default function Forum() {
             </h2>
           </div>
           <div className="flex space-x-3">
+            {/* Clear Forum Button */}
+            <Button 
+              onClick={() => {
+                if (confirm('Вы уверены, что хотите очистить все темы форума и ответы? Это действие нельзя отменить.')) {
+                  localStorage.removeItem('forumTopics');
+                  localStorage.removeItem('forumReplies');
+                  setUserTopics([]);
+                  setTopicReplies([]);
+                  alert('Форум очищен!');
+                }
+              }}
+              className="hidden md:flex bg-red-600 hover:bg-red-700 text-white font-orbitron font-bold px-4 py-3 rounded-lg shadow-lg hover:shadow-red-600/30 transform hover:scale-105 transition-all duration-300 border-2 border-red-500/50 hover:border-red-500"
+            >
+              <Icon name="Trash2" size={18} className="mr-2" />
+              <span className="tracking-wider">ОЧИСТИТЬ</span>
+            </Button>
+            
             {/* Desktop Create Topic Button */}
             <CreateTopicModal>
               <Button className="hidden md:flex bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-cs-orange/30 transform hover:scale-105 transition-all duration-300 border-2 border-cs-orange/50 hover:border-cs-orange">
@@ -248,13 +265,30 @@ export default function Forum() {
               </Button>
             </CreateTopicModal>
             
-            {/* Mobile Create Topic Button */}
-            <CreateTopicModal>
-              <Button className="md:hidden flex-1 bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold px-4 py-3 rounded-lg shadow-lg transition-all duration-300 border-2 border-cs-orange/50">
-                <Icon name="Plus" size={16} className="mr-2" />
-                <span className="tracking-wider text-sm">СОЗДАТЬ</span>
+            {/* Mobile Buttons */}
+            <div className="md:hidden flex space-x-2 w-full">
+              <Button 
+                onClick={() => {
+                  if (confirm('Вы уверены, что хотите очистить все темы форума и ответы? Это действие нельзя отменить.')) {
+                    localStorage.removeItem('forumTopics');
+                    localStorage.removeItem('forumReplies');
+                    setUserTopics([]);
+                    setTopicReplies([]);
+                    alert('Форум очищен!');
+                  }
+                }}
+                className="bg-red-600 hover:bg-red-700 text-white font-orbitron font-bold px-3 py-3 rounded-lg shadow-lg transition-all duration-300 border-2 border-red-500/50"
+              >
+                <Icon name="Trash2" size={16} />
               </Button>
-            </CreateTopicModal>
+              
+              <CreateTopicModal>
+                <Button className="flex-1 bg-gradient-to-r from-cs-orange to-cs-red hover:from-cs-red hover:to-cs-orange text-white font-orbitron font-bold px-4 py-3 rounded-lg shadow-lg transition-all duration-300 border-2 border-cs-orange/50">
+                  <Icon name="Plus" size={16} className="mr-2" />
+                  <span className="tracking-wider text-sm">СОЗДАТЬ</span>
+                </Button>
+              </CreateTopicModal>
+            </div>
           </div>
         </div>
 
