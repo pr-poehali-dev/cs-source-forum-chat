@@ -32,9 +32,15 @@ const Index = () => {
                 alt="CS:S Logo"
                 className="w-12 h-12 rounded"
               />
-              <h1 className="font-orbitron text-2xl font-bold text-cs-orange cs-text-shadow">
-                COUNTER-STRIKE: SOURCE
-              </h1>
+              <div className="font-orbitron cs-text-shadow">
+                <h1 className="text-2xl font-black text-cs-orange leading-none">
+                  РЕАЛЬНЫЕ ПАЦАНЫ ИЗ 90-х
+                </h1>
+                <div className="text-sm font-bold text-cs-light/80 tracking-widest mt-1">
+                  [<span className="text-cs-red">PUBLIC PRO</span>]{" "}
+                  <span className="text-cs-orange">v34</span>
+                </div>
+              </div>
             </div>
             <div className="hidden md:flex space-x-6">
               {[
