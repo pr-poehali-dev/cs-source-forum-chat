@@ -5,7 +5,6 @@ import { Navigation } from "@/components/home/Navigation";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ServerStatusCard } from "@/components/home/ServerStatusCard";
 import { PlayersCard } from "@/components/home/PlayersCard";
-import { ServerStatsCard } from "@/components/home/ServerStatsCard";
 import { TopPlayersCard } from "@/components/home/TopPlayersCard";
 import { generateTopPlayers, getRankInfo } from "@/utils/playerUtils";
 import Icon from "@/components/ui/icon";
@@ -101,14 +100,139 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Player Statistics */}
+      {/* Server Health Status */}
       <section className="py-16 px-6">
         <div className="container mx-auto">
           <h3 className="font-orbitron text-3xl font-bold text-cs-orange mb-8 text-center">
-            СТАТИСТИКА ИГРОКОВ
+            СОСТОЯНИЕ СЕРВЕРА
           </h3>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Подробное состояние сервера */}
+            <div className="bg-cs-gray/80 border-cs-orange/20 backdrop-blur-sm rounded p-6">
+              <div className="flex items-center space-x-2 mb-6">
+                <Icon name="Activity" size={24} className="text-cs-orange" />
+                <h4 className="font-orbitron text-xl font-bold text-cs-orange">
+                  МОНИТОРИНГ 45.136.205.92:27015
+                </h4>
+                {isLoading ? (
+                  <Icon name="Loader2" size={16} className="animate-spin text-cs-orange ml-auto" />
+                ) : (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={refetch}
+                    className="border-cs-orange/40 text-cs-orange hover:bg-cs-orange/20 ml-auto"
+                  >
+                    <Icon name="RefreshCw" size={14} />
+                  </Button>
+                )}
+              </div>
+
+              {/* Основные показатели */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="bg-cs-dark/30 p-4 rounded text-center">
+                  <div className={`text-2xl font-bold font-orbitron ${
+                    serverInfo.status === 'online' && serverInfo.players > 0 ? 'text-green-500' : 
+                    serverInfo.status === 'online' ? 'text-yellow-500' : 'text-red-500'
+                  }`}>
+                    {serverInfo.players}/{serverInfo.maxPlayers}
+                  </div>
+                  <div className="text-sm text-cs-light/80">Игроки онлайн</div>
+                </div>
+                
+                <div className="bg-cs-dark/30 p-4 rounded text-center">
+                  <div className={`text-2xl font-bold font-orbitron ${
+                    serverInfo.ping < 30 ? 'text-green-500' : 
+                    serverInfo.ping < 60 ? 'text-yellow-500' : 
+                    serverInfo.ping > 500 ? 'text-red-500' : 'text-orange-500'
+                  }`}>
+                    {serverInfo.ping === 999 ? 'N/A' : `${serverInfo.ping}ms`}
+                  </div>
+                  <div className="text-sm text-cs-light/80">Пинг</div>
+                </div>
+              </div>
+
+              {/* Статус сервера */}
+              <div className={`p-4 rounded border ${
+                error ? 'bg-red-500/10 border-red-500/30' : 
+                serverInfo.status === 'online' ? 'bg-green-500/10 border-green-500/30' : 'bg-yellow-500/10 border-yellow-500/30'
+              }`}>
+                <div className="flex items-center space-x-2 mb-2">
+                  <Icon 
+                    name={error ? "AlertTriangle" : serverInfo.status === 'online' ? "CheckCircle" : "XCircle"} 
+                    size={16} 
+                    className={error ? 'text-red-500' : serverInfo.status === 'online' ? 'text-green-500' : 'text-yellow-500'} 
+                  />
+                  <span className={`font-semibold ${
+                    error ? 'text-red-500' : serverInfo.status === 'online' ? 'text-green-500' : 'text-yellow-500'
+                  }`}>
+                    {error ? 'ОШИБКА ПОДКЛЮЧЕНИЯ' : 
+                     serverInfo.status === 'online' ? 'СЕРВЕР ОНЛАЙН' : 'СЕРВЕР ОФЛАЙН'}
+                  </span>
+                </div>
+                
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">Карта:</span>
+                    <span className="text-cs-orange font-semibold">{serverInfo.map}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">Версия:</span>
+                    <span className="text-cs-light">v1.0.0.71</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-cs-light/70">VAC:</span>
+                    <span className="text-green-400">Защищен</span>
+                  </div>
+                  {lastUpdate && (
+                    <div className="flex justify-between">
+                      <span className="text-cs-light/70">Обновлено:</span>
+                      <span className="text-blue-400 font-mono text-xs">
+                        {lastUpdate.toLocaleTimeString('ru-RU')}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {error && (
+                <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded">
+                  <div className="text-red-400 text-sm font-semibold mb-1">
+                    Техническая ошибка:
+                  </div>
+                  <div className="text-xs text-red-300">
+                    {error.includes('CORS') ? 
+                      'Браузер блокирует прямые UDP запросы к серверу. Требуется прокси для Source Query протокола.' : 
+                      error
+                    }
+                  </div>
+                </div>
+              )}
+
+              {/* Кнопки действий */}
+              <div className="flex space-x-2 mt-6">
+                <Button 
+                  onClick={refetch} 
+                  disabled={isLoading}
+                  className="flex-1 bg-cs-orange hover:bg-cs-orange/80 text-cs-dark font-orbitron font-bold"
+                >
+                  <Icon name="RefreshCw" size={16} className="mr-2" />
+                  {isLoading ? 'ПРОВЕРКА...' : 'ОБНОВИТЬ'}
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="border-green-500/40 text-green-500 hover:bg-green-500/20"
+                  onClick={() => window.open('steam://connect/45.136.205.92:27015', '_blank')}
+                >
+                  <Icon name="Play" size={16} className="mr-2" />
+                  ИГРАТЬ
+                </Button>
+              </div>
+            </div>
+
+            {/* Игроки онлайн */}
             <PlayersCard 
               players={players}
               serverInfo={serverInfo}
@@ -116,10 +240,6 @@ const Index = () => {
               error={error}
               lastUpdate={lastUpdate}
               onRefetch={refetch}
-            />
-            <ServerStatsCard 
-              players={players}
-              serverInfo={serverInfo}
             />
           </div>
         </div>
