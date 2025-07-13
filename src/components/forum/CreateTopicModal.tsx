@@ -85,7 +85,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="Введите заголовок темы..."
-              className="bg-cs-dark border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 font-orbitron"
+              className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange"
               maxLength={100}
             />
             <div className="text-xs text-cs-light/60 text-right">
@@ -99,7 +99,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               КАТЕГОРИЯ *
             </label>
             <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-              <SelectTrigger className="bg-cs-dark border-cs-orange/40 text-cs-light font-orbitron">
+              <SelectTrigger className="bg-cs-gray/40 border-cs-orange/40 text-cs-light font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange">
                 <SelectValue placeholder="Выберите категорию..." />
               </SelectTrigger>
               <SelectContent className="bg-cs-gray border-cs-orange/40">
@@ -124,7 +124,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Опишите вашу тему подробно..."
-              className="bg-cs-dark border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 min-h-[120px] font-orbitron"
+              className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 min-h-[120px] font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange"
               maxLength={2000}
             />
             <div className="text-xs text-cs-light/60 text-right">
@@ -141,7 +141,7 @@ export default function CreateTopicModal({ children }: CreateTopicModalProps) {
               value={formData.tags}
               onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
               placeholder="dust2, awp, тактика (через запятую)"
-              className="bg-cs-dark border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 font-orbitron"
+              className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 font-orbitron focus:bg-cs-gray/60 focus:border-cs-orange"
             />
             <div className="text-xs text-cs-light/60">
               Используйте теги для лучшего поиска темы

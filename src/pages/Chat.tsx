@@ -178,7 +178,7 @@ export default function Chat() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Введите сообщение..."
-                    className="bg-cs-dark/50 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50"
+                    className="bg-cs-gray/40 border-cs-orange/40 text-cs-light placeholder:text-cs-light/50 focus:bg-cs-gray/60 focus:border-cs-orange"
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   />
                   <Button 
